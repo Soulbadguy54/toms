@@ -19,6 +19,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
  const [view,setView]=useState<View>('landing'),[ready,setReady]=useState(false);
  const [destination,setDestination]=useState<Destination|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(false),[loading,setLoading]=useState(false);
  const [catalogPage,setCatalogPage]=useState(0);
+ const [bootProgress,setBootProgress]=useState(0),[bootReady,setBootReady]=useState(false);
  const hoverCanvas=useRef<HTMLCanvasElement>(null);
  const progressBar=useRef<HTMLSpanElement>(null);
  useEffect(()=>{
@@ -27,6 +28,19 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
   const media=matchMedia('(prefers-reduced-motion: reduce)');
   let stopped=false,painting=false,target=0,last=-1,active:Destination|null=null,animating=false,frame=0,returnProgress=0,flipped=false;
   let revision=0,lastScene:View='landing',hoverRevision=0;
+  const preloadInitial=async()=>{
+   if(media.matches){setBootProgress(1);setBootReady(true);return;}
+   const preloadTargets:Array<[SequenceName,number]>=[
+    ...Array.from({length:16},(_,index)=>['world',index] as [SequenceName,number]),
+    ...Array.from({length:24},(_,index)=>['curtain',index] as [SequenceName,number]),
+   ];
+   let completed=0;
+   await Promise.allSettled(preloadTargets.map(([name,index])=>cache.get(name,index).finally(()=>{
+    completed++;if(!stopped)setBootProgress(completed/preloadTargets.length);
+   })));
+   if(!stopped)setBootReady(true);
+  };
+  void preloadInitial();
   const snapshot=()=>{const image=document.createElement('canvas');image.width=1280;image.height=720;image.getContext('2d')!.drawImage(base.current!,0,0);return image;};
   const pause=(ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms));
   const smooth=(t:number)=>{t=clamp(t);return t*t*(3-2*t);};
@@ -146,7 +160,12 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
   window.addEventListener('open-product-catalog',brandEvent);window.addEventListener('show-brand-choice',showChoice);document.addEventListener('visibilitychange',visible);window.addEventListener('keydown',key);
   return()=>{stopped=true;stopHover();revision++;tween.kill();trigger.kill();cache.dispose();renderer.dispose();window.removeEventListener('open-product-catalog',brandEvent);window.removeEventListener('show-brand-choice',showChoice);document.removeEventListener('visibilitychange',visible);window.removeEventListener('keydown',key);};
  },[]);
- return <section ref={root} id="world" className="world sequence-world" aria-label="Мир Дяди Тома" aria-busy={busy}>
+ return <section ref={root} id="world" className="world sequence-world" aria-label="Мир Дяди Тома" aria-busy={busy||!bootReady}>
+  {!bootReady&&<div className="site-preloader" role="status" aria-live="polite">
+   <img src="/ut-logo-transparent.png" alt="" className="site-preloader-logo"/>
+   <div className="site-preloader-copy"><strong>Добро пожаловать в мир вкуса</strong><span>Подготавливаем сцену… {Math.round(bootProgress*100)}%</span></div>
+   <div className="site-preloader-track" aria-hidden="true"><span style={{transform:`scaleX(${bootProgress})`}}/></div>
+  </div>}
   <div ref={track} className="world-track"><div className="world-stage">
    <div className="world-frame">
     {!ready&&<img className="world-video" src={frameUrl('world',0)} alt="Ферма Дяди Тома" fetchPriority="high"/>}
@@ -154,7 +173,9 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
     <canvas ref={hoverCanvas} className="character-motion" width={1280} height={720} aria-hidden="true"/>
     <div className="world-ui" data-scene={view}>
      <div className="character-hotspots" inert={view!=='landing'||busy} aria-hidden={view!=='landing'}>
-      {(Object.keys(characterRegions) as Character[]).map(character=><button key={character} type="button" className={`character-hit character-${character}`} aria-label={`${characterLabels[character]} — смотреть видео`} onPointerEnter={()=>actions.current.hover(character)} onPointerLeave={()=>actions.current.hover(null)} onFocus={()=>actions.current.hover(character)} onBlur={()=>actions.current.hover(null)} onClick={()=>actions.current.open('about')}/>) }
+      {(Object.keys(characterRegions) as Character[]).map(character=><button key={character} type="button" className={`character-hit character-${character}`} aria-label={`${characterLabels[character]} — смотреть видео`} onPointerEnter={()=>actions.current.hover(character)} onPointerLeave={()=>actions.current.hover(null)} onFocus={()=>actions.current.hover(character)} onBlur={()=>actions.current.hover(null)} onClick={()=>actions.current.open('about')}>
+       <span className="character-card"><strong>{characterLabels[character]}</strong><span>Текст заглушка</span></span>
+      </button>) }
      </div>
      <nav className="world-nav" aria-label="Навигация"><button type="button" onClick={()=>actions.current.choose()}>Продукты</button><button type="button" onClick={onAbout}>О нас</button><a className="world-ozon" href={ozon} target="_blank" rel="noopener noreferrer">Мы на <b>Ozon</b><ArrowUpRight size={18}/></a></nav>
      <div className="world-intro"><img className="landing-brand" src="/ut-logo-transparent.png" alt="Продукты Дяди Тома"/><div className="welcome-cloud"><h1>Добро пожаловать<br/>в мир вкуса</h1><p>Для любимых семейных традиций</p></div></div>
