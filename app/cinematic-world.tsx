@@ -151,7 +151,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
   const flip=async(direction:1|-1=1)=>{
    if(animating||active!=='toms')return;
    if((direction>0&&flipped)||(direction<0&&!flipped))return;
-   animating=true;setBusy(true);setCatalogPage(-1);
+   animating=true;setBusy(true);
    try{
     if(direction>0)await play('toms-pages',0,sequences['toms-pages']-1);
     else await play('toms-pages',sequences['toms-pages']-1,0);
@@ -197,7 +197,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
     {destination==='about'&&view==='destination'&&<div className="projection-video"><video src="/video/world.mp4" aria-label="Пример видео на экране Дяди Тома" controls autoPlay muted playsInline loop preload="metadata"/></div>}
     <canvas ref={overlay} className="world-curtain" width={1280} height={720} aria-hidden="true"/>
    </div>
-   {(view==='choice'||view==='destination')&&<div className="world-controls"><button type="button" disabled={busy} onClick={()=>actions.current.back()}><RotateCcw size={16}/>{destination?'Назад':'В начало'}</button>{destination==='toms'&&<button type="button" disabled={busy} onClick={()=>actions.current.flip(catalogPage===0?1:-1)}>{catalogPage===0?'Следующая страница':'Предыдущая страница'}</button>}</div>}
+   {(view==='choice'||view==='destination')&&<div className="world-controls"><button type="button" disabled={busy} onClick={()=>actions.current.back()}><RotateCcw size={16}/>{destination?'Назад':'В начало'}</button></div>}
    {(loading||error)&&<div className="sequence-status" role="status">{error?<><span>Не удалось загрузить кадры.</span><button onClick={()=>actions.current.retry()}>Повторить</button></>:<span>Загружаем сцену…</span>}</div>}
    <div className="world-progress" aria-hidden="true"><span ref={progressBar}/></div>
   </div></div>
@@ -258,7 +258,7 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
  return <div className={`book-catalog book-catalog-${brand}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
   <svg viewBox="0 0 1280 720" aria-hidden="false">
    {brand==='ut'?<>
-    <g className="book-ink ut-page-left book-perspective-left" transform="translate(410 185) rotate(10) skewY(1.8) scale(.985 1)">
+    <g className="book-ink ut-page-left book-perspective-left" transform="translate(410 185) rotate(10.6) skewY(1.4) scale(.985 1)">
      <text className="book-kicker" x="0" y="0">ПРОДУКТЫ ДЯДИ ТОМА</text><text className="book-title" x="0" y="42">Соки и нектары</text><path d="M0 58H255"/>
      {renderItems('left')}<text className="book-note" x="0" y="212">Натуральный вкус щедрого сада</text>
     </g>
@@ -267,10 +267,10 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
      {renderItems('right')}<text className="book-note" x="0" y="212">Вкус начинается дома</text>
     </g>
    </>:page===0?<>
-    <g className="book-ink toms-page-left book-perspective-left" transform="translate(240 176) rotate(2.4) skewY(1.7) scale(.975 1)">
+    <g className="book-ink toms-page-left book-perspective-left" transform="translate(240 176) rotate(10.4) skewY(1.5) scale(.975 1)">
      <text className="book-kicker" x="0" y="0">TOM’S · SAUCE COLLECTION</text><text className="book-title" x="0" y="44">Соусы</text><path d="M0 62H310"/>{renderItems('left')}<text className="book-note" x="0" y="270">Яркие вкусы для любимых блюд</text>
     </g>
-    <g className="book-ink toms-page-right book-perspective-right" transform="translate(748 176) rotate(-2.6) skewY(-1.8) scale(.975 1)">
+    <g className="book-ink toms-page-right book-perspective-right" transform="translate(748 176) rotate(-2.8) skewY(-1.5) scale(.975 1)">
      <text className="book-kicker" x="0" y="0">CHEF’S CHOICE</text><text className="book-title" x="0" y="44">Азиатская линия</text><path d="M0 62H310"/>{renderItems('right')}<text className="book-note" x="0" y="270">Точная подача. Чистый вкус.</text>
     </g>
    </>:<>
