@@ -27,8 +27,8 @@ export function createCurtainRenderer(canvas: HTMLCanvasElement) {
           if(x+1<width)neighbour=Math.max(neighbour,matte[p+1]);
           if(y>0)neighbour=Math.max(neighbour,matte[p-width]);
           if(y+1<height)neighbour=Math.max(neighbour,matte[p+width]);
-          const key=Math.max(matte[p],neighbour*0.56);
-          const spill=smoothstep(0,20,g-maxRB);
+          const key=Math.max(matte[p],neighbour*0.82);
+          const spill=Math.max(smoothstep(-4,18,g-maxRB),key*0.9);
           pixels[i+1]=Math.round(g+(maxRB-g)*spill);
           pixels[i+3]=Math.round(255*(1-key));
         }
@@ -49,19 +49,25 @@ export function createCurtainRenderer(canvas: HTMLCanvasElement) {
     float keyAt(vec2 point){
       vec3 sampleColor=texture2D(plate,point).rgb;
       float dominance=sampleColor.g-max(sampleColor.r,sampleColor.b);
-      return smoothstep(0.02,0.122,dominance)*smoothstep(0.102,0.243,sampleColor.g);
+      return smoothstep(0.005,0.092,dominance)*smoothstep(0.075,0.205,sampleColor.g);
     }
     void main(){
       vec4 c=texture2D(plate,uv);
       float key=keyAt(uv);
       float neighbour=max(
-        max(keyAt(uv+vec2(texel.x,0.0)),keyAt(uv-vec2(texel.x,0.0))),
-        max(keyAt(uv+vec2(0.0,texel.y)),keyAt(uv-vec2(0.0,texel.y)))
+        max(
+          max(keyAt(uv+vec2(texel.x,0.0)),keyAt(uv-vec2(texel.x,0.0))),
+          max(keyAt(uv+vec2(0.0,texel.y)),keyAt(uv-vec2(0.0,texel.y)))
+        ),
+        max(
+          max(keyAt(uv+texel),keyAt(uv-texel)),
+          max(keyAt(uv+vec2(texel.x,-texel.y)),keyAt(uv+vec2(-texel.x,texel.y)))
+        )
       );
-      key=max(key,neighbour*0.56);
+      key=max(key,neighbour*0.82);
       float alpha=1.0-key;
       float maxRB=max(c.r,c.b);
-      float spill=smoothstep(0.0,0.078,c.g-maxRB);
+      float spill=max(smoothstep(-0.015,0.07,c.g-maxRB),key*0.92);
       c.g=mix(c.g,min(c.g,maxRB),spill);
       gl_FragColor=vec4(c.rgb,alpha);
     }`);
