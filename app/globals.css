@@ -294,3 +294,18 @@ html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;
 .book-catalog-toms .book-copy{font-size:21px;font-weight:600}
 .book-catalog-toms .book-kicker{letter-spacing:2.5px}
 @keyframes book-catalog-in{from{opacity:0;filter:blur(2px)}to{opacity:.92;filter:none}}
+
+
+/* Cinematic preload: warm enough image frames before interaction starts. */
+.site-preloader{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;background:radial-gradient(circle at 50% 42%,#254b2e 0,#17351e 46%,#102c1c 100%);color:#fff9eb;text-align:center}
+.site-preloader-logo{width:min(210px,42vw);height:auto;filter:drop-shadow(0 12px 28px #0005);animation:preloader-float 1.8s ease-in-out infinite alternate}
+.site-preloader-copy{display:flex;flex-direction:column;gap:6px;font-size:15px;letter-spacing:.01em}.site-preloader-copy strong{font:700 clamp(24px,3vw,40px)/1.1 Georgia,serif}.site-preloader-copy span{opacity:.8}
+.site-preloader-track{width:min(360px,72vw);height:4px;overflow:hidden;border-radius:999px;background:#ffffff26}.site-preloader-track span{display:block;width:100%;height:100%;transform-origin:left;background:var(--gold);transition:transform .16s linear}
+@keyframes preloader-float{from{transform:translateY(0) scale(.985)}to{transform:translateY(-7px) scale(1)}}
+
+.character-card{position:absolute;left:50%;top:calc(100% + 10px);z-index:6;display:flex;min-width:170px;max-width:230px;flex-direction:column;gap:5px;padding:12px 14px;border:1px solid #fff9eb66;border-radius:14px;background:#17351ef0;color:#fff9eb;text-align:left;box-shadow:0 12px 30px #0b1d1266;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px) scale(.97);transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s;backdrop-filter:blur(8px)}
+.character-card strong{font:700 16px/1.15 Georgia,serif}.character-card span{font-size:13px;line-height:1.35;opacity:.86}
+.character-hit:hover .character-card,.character-hit:focus-visible .character-card{opacity:1;visibility:visible;transform:translate(-50%,0) scale(1);transition-delay:0s}
+.character-tomatoes .character-card,.character-pepper .character-card{top:auto;bottom:calc(100% + 10px);transform:translate(-50%,-8px) scale(.97)}
+.character-tomatoes:hover .character-card,.character-tomatoes:focus-visible .character-card,.character-pepper:hover .character-card,.character-pepper:focus-visible .character-card{transform:translate(-50%,0) scale(1)}
+@media(max-aspect-ratio:4/5){.character-card{min-width:140px;max-width:180px;padding:10px 12px}.character-card strong{font-size:14px}.character-card span{font-size:12px}}
