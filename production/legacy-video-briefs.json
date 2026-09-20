@@ -1,0 +1,140 @@
+{
+  "model": "seedance_2_0",
+  "resolution": "720p",
+  "storyboardPolicy": "Directing reference only. Never serve storyboard or extracted panels.",
+  "scenes": [
+    {
+      "duration": 8,
+      "key": "hero",
+      "medias": [
+        {
+          "role": "image",
+          "value": "3197f5a8-8f4b-4551-b41e-35a938dea628"
+        },
+        {
+          "role": "image",
+          "value": "f3e4a330-b78a-4857-8e7d-e49ceadefa88"
+        },
+        {
+          "role": "image",
+          "value": "15cc8a70-58f8-4f90-92e7-1ff6e552d642"
+        },
+        {
+          "role": "image",
+          "value": "f2d5458d-a378-4836-8e53-ee85a1ef88ec"
+        },
+        {
+          "role": "image",
+          "value": "c60233dd-c208-470e-ae69-0d9e61282f06"
+        },
+        {
+          "role": "image",
+          "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+        }
+      ],
+      "prompt": "MASTER: Premium stylized 3D website cinematic, 16:9 720p, warm cinematic daylight, fixed coherent identity and physically believable weight. All supplied turnarounds are identity references of ONE character, never multiple clones. Storyboard sheet is ONLY directing/composition guidance: NEVER display panels, borders, captions, collage, or use a panel as a final frame. Render a fresh full-frame continuous scene. No UI, no added text. Stable face, hat, beard, wardrobe, proportions. No morphing, flicker, extra limbs, sliding feet or disappearing objects. Silent. Safe margins 10%.\nSCENE 01 HERO WORLD AMBIENCE. REFERENCES in order: standalone farm landscape establishes exact house, hangar, van and garden; Tom turnaround; dog Perets; crow Paprika; branded airplane; storyboard directing only. COMPOSITION: farm background as provided, Tom full body center at x55%, dog lower right chasing two small expressive running tomatoes along a short curved garden path, crow upper right, airplane upper left. Leave left lower quadrant quieter for website copy. Do not show logos or signage text. TIMELINE 0-2s: calm living world, Tom breathing and small natural head turn, leaves move in breeze; 2-6s: dog takes several natural playful steps following tomatoes, crow gently flaps and lands, plane slowly drifts across upper-left sky; 6-8s: settle close to initial blocking for ambient looping. Locked wide camera, no cuts, no advertising montage, no zoom. Farm and hangar do not mutate."
+    },
+    {
+      "duration": 10,
+      "key": "rope",
+      "medias": [
+        {
+          "role": "image",
+          "value": "f3e4a330-b78a-4857-8e7d-e49ceadefa88"
+        },
+        {
+          "role": "image",
+          "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+        }
+      ],
+      "prompt": "MASTER: Premium stylized 3D website cinematic, 16:9 720p, warm cinematic daylight, fixed coherent identity and physically believable weight. All supplied turnarounds are identity references of ONE character, never multiple clones. Storyboard sheet is ONLY directing/composition guidance: NEVER display panels, borders, captions, collage, or use a panel as a final frame. Render a fresh full-frame continuous scene. No UI, no added text. Stable face, hat, beard, wardrobe, proportions. No morphing, flicker, extra limbs, sliding feet or disappearing objects. Silent. Safe margins 10%.\nSCENE 02 TOM CURTAIN ROPE. Identity reference 1 overrides storyboard clothing/face; storyboard reference 2 only staging. One full-body Tom, centered, entirely before a closed rich red velvet theater curtain filling the background. No farm visible. TIMELINE: 0-1s Tom stands calmly, feet visible. 1-2s a thick rope descends from the top, free bottom end stops just above his raised reach. 2-3s Tom notices and looks up, slightly crouches bending BOTH knees. 3-4s he jumps with natural leg extension, reaches BOTH hands UP and firmly grasps the very bottom end of rope; rope stays above hands, NEVER runs through his body. 4-5.5s hangs freely, legs off floor, elbows and shoulders bear weight, small physical settling. 5.5-9s rope pays out smoothly from above, lowering Tom toward bottom of screen, subtle camera pullback keeps whole body visible. 9-10s settle hanging in lower third. Hold final state. Two arms, two hands both visibly holding rope; hat and beard stable, no puppet motion, no pose swap."
+    },
+    {
+      "duration": 6,
+      "key": "reveal",
+      "medias": [
+        {
+          "role": "image",
+          "value": "3197f5a8-8f4b-4551-b41e-35a938dea628"
+        },
+        {
+          "role": "image",
+          "value": "e54c72f6-b307-44af-8a2a-39bad77a7bb0"
+        },
+        {
+          "role": "image",
+          "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+        }
+      ],
+      "prompt": "MASTER: Premium stylized 3D website cinematic, 16:9 720p, warm cinematic daylight, fixed coherent identity and physically believable weight. All supplied turnarounds are identity references of ONE character, never multiple clones. Storyboard sheet is ONLY directing/composition guidance: NEVER display panels, borders, captions, collage, or use a panel as a final frame. Render a fresh full-frame continuous scene. No UI, no added text. Stable face, hat, beard, wardrobe, proportions. No morphing, flicker, extra limbs, sliding feet or disappearing objects. Silent. Safe margins 10%.\nSCENE 03 CURTAIN REVEAL FARM. Original standalone farm landscape is primary composition reference; house turnaround locks architecture; storyboard directing only. No characters or logos. 0-1.5s: rich red velvet curtains sweep across and completely close the screen. 1.5-2s hold completely closed red velvet folds. 2-5s curtains lift smoothly upward with believable heavy cloth folds revealing EXACT referenced sunny farm, orchards, house, hangar with van at right. 5-6s curtains fully out of frame, hold clean farm landscape. Camera locked, no landscape morphing, no changing building."
+    },
+    {
+      "duration": 5,
+      "key": "logos",
+      "medias": [
+        {
+          "role": "image",
+          "value": "3197f5a8-8f4b-4551-b41e-35a938dea628"
+        },
+        {
+          "role": "image",
+          "value": "100cdad6-d826-4ba7-bfa8-f33c1a1dad8f"
+        },
+        {
+          "role": "image",
+          "value": "0b97e99d-7857-4f27-a1fd-a4df0bd6d452"
+        }
+      ],
+      "prompt": "MASTER: Premium stylized 3D website cinematic, 16:9 720p, warm cinematic daylight, fixed coherent identity and physically believable weight. All supplied turnarounds are identity references of ONE character, never multiple clones. Storyboard sheet is ONLY directing/composition guidance: NEVER display panels, borders, captions, collage, or use a panel as a final frame. Render a fresh full-frame continuous scene. No UI, no added text. Stable face, hat, beard, wardrobe, proportions. No morphing, flicker, extra limbs, sliding feet or disappearing objects. Silent. Safe margins 10%.\nSCENE 04 LOGO DROP. Reference 1 exact sunny farm. Reference 2 EXACT approved Uncle Tom circular badge printed on rigid cream freestanding board, LEFT at x30%. Reference 3 EXACT black Tom's wordmark printed on rigid cream board, RIGHT x70%. Copy artwork faithfully, lettering and shapes immutable, do not redesign. Both boards final centers y60%, each width28%, top y40%, bottom y80%, ground contact consistent. No characters. 0-.7s clean empty farm matching reference; .7-2.4s two logo boards descend from above frame, left first then right .2s later, perfectly front facing, controlled gravitational acceleration; 2.4-3.3s controlled small impact, short vertical rebound, no rotation causing unreadable logos; 3.3-5s settle motionless in specified final positions. Locked camera, stable farm, no logo deformation or text mutation."
+    },
+    {
+      "duration": 8,
+      "key": "entrances",
+      "medias": [
+        {
+          "role": "image",
+          "value": "3197f5a8-8f4b-4551-b41e-35a938dea628"
+        },
+        {
+          "role": "image",
+          "value": "f3e4a330-b78a-4857-8e7d-e49ceadefa88"
+        },
+        {
+          "role": "image",
+          "value": "36d1603c-825c-4e13-b97c-d462951ea78b"
+        },
+        {
+          "role": "image",
+          "value": "100cdad6-d826-4ba7-bfa8-f33c1a1dad8f"
+        },
+        {
+          "role": "image",
+          "value": "0b97e99d-7857-4f27-a1fd-a4df0bd6d452"
+        }
+      ],
+      "prompt": "MASTER: Premium stylized 3D website cinematic, 16:9 720p, warm cinematic daylight, fixed coherent identity and physically believable weight. All supplied turnarounds are identity references of ONE character, never multiple clones. Storyboard sheet is ONLY directing/composition guidance: NEVER display panels, borders, captions, collage, or use a panel as a final frame. Render a fresh full-frame continuous scene. No UI, no added text. Stable face, hat, beard, wardrobe, proportions. No morphing, flicker, extra limbs, sliding feet or disappearing objects. Silent. Safe margins 10%.\nSCENE 05 CHARACTER ENTRANCES. Reference1 farm; ref2 Tom identity; ref3 Don Don Tom identity; ref4 exact Uncle Tom badge; ref5 exact Tom's wordmark. Two rigid cream boards front-facing final centers x30% and x70%, y60%, each width28%, top y40%, bottom y80%, exactly as scene04. Logos printed on boards use exact supplied original artwork with zero deformation or text changes. 0-1s clean farm with both stationary logo boards, no characters yet. 1-4s Tom walks naturally in from LEFT toward outside left edge of left board; Don Don Tom walks from RIGHT toward outside right edge of right board, visible alternating grounded steps. 4-6s Tom places right forearm on left board upper edge, Don places left forearm on right board upper edge; gently transfer weight into convincing relaxed leaning contact, feet firmly planted. 6-8s hold final welcoming poses, characters face camera. Keep hands clear of lettering, whole bodies visible. No extra people, no moving logos, no body sliding, no limb errors. Camera locked, matching sunny farm."
+    }
+  ],
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "fabcfda7-9095-4ebb-9b72-ab213b4f1829"
+    },
+    {
+      "index": 1,
+      "job_id": "bb2ecb9d-b847-469c-8605-3c70a2cdf3c3"
+    },
+    {
+      "index": 2,
+      "job_id": "07f9bdd0-638f-48a0-a782-394549891be4"
+    },
+    {
+      "index": 3,
+      "job_id": "08b02673-1b56-4ba2-8b61-036218cf468a"
+    },
+    {
+      "index": 4,
+      "job_id": "d1d58e3a-f4ac-4b56-b3d9-b9f4a4beaa01"
+    }
+  ]
+}

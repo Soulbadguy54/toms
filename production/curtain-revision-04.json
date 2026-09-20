@@ -1,0 +1,36 @@
+{
+  "params": {
+    "aspect_ratio": "16:9",
+    "bitrate_mode": "high",
+    "count": 1,
+    "duration": 8,
+    "generate_audio": false,
+    "medias": [
+      {
+        "role": "image",
+        "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+      },
+      {
+        "role": "image",
+        "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+      },
+      {
+        "role": "image",
+        "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+      }
+    ],
+    "mode": "std",
+    "model": "seedance_2_0",
+    "prompt": "One continuous locked-camera 8-second theatrical transition for website compositing. 16:9, silent, premium stylized 3D. Only red velvet curtains, ONE original Uncle Tom and ONE tan rope on perfectly uniform unlit RGB(0,255,0) key green.\nReferences 1 and 2 define the SAME original Tom: preserve face, ginger beard/moustache, straw hat, cream shirt, brown bib overalls, boots and body proportions. Do not render their scenery, text, logos or other characters. Reference 3 is storyboard direction ONLY, never output its panels.\nPRIMARY ACTION: a FAST downward fall, NOT a slow controlled lowering. Tom AND THE ENTIRE ROPE FALL TOGETHER in one brief action, completely out through the bottom camera boundary. The rope has a FREE upper end and no remaining attachment after the fall starts. Nothing follows or trails behind the rope: no cloth, curtain corner, ribbon, sheet, fragments, streaks, phantom duplicate or extra cord. Curtains and rope are SEPARATE objects and NEVER merge or touch. Do not show an endless rope feeding from above.\nTIMING:\n0–2.0s: completely EMPTY key green, no foreground.\n2.0–2.7s: heavy full-height red velvet curtains sweep closed and cover the complete frame edge-to-edge, with deep folds and believable weighted hems. No gaps or exposed green.\n2.7–3.0s: fully closed curtain hold.\n3.0–3.8s: Tom drops in from above at speed already gripping the bottom end of ONE finite rope with both hands above his head. His body is about 60% frame height. His descent accelerates, knees and boots respond naturally to gravity. The whole fall across screen is under ONE SECOND. No pause, hover, slow motion, climbing, sliding down a suspended rope or ground impact. The loose upper end of rope becomes visible promptly, follows a small smooth natural curve and falls WITH him, never staying attached above. Rope length is only about half Tom's height; fixed thickness, a single uninterrupted flexible strand. No knots, loops or intersections with his body. Tom and the COMPLETE rope clear the bottom edge by 3.8s. No strand left hanging after his exit.\n3.1–4.3s: simultaneously the red curtain is hoisted UP by its own unseen theatre mechanism, separately from the falling rope. Heavy fabric gathers in convincing folds, tension spreads through cloth, lower hem lags naturally then lifts. Soft secondary fold motion and damping, no rubber stretching. ALL red fabric leaves through the TOP edge by 4.3s, no stationary side drapes or top fringe. Curtain must never chase the rope downward or stretch into a tether.\n4.3–8.0s: absolutely EMPTY uniform key green, no Tom, rope, red fabric or shadows.\nNatural rope dynamics: slight initial tension from grip then free falling gentle curvature, constant length, intact material continuity, no sharp kinks, no whip lashes, no detached pieces. Clean edges suitable for chroma key; no green colors/reflections on foreground; minimal motion blur.\nNEGATIVE: slow lowering, hanging in place, long descent, infinite rope, rope anchored after fall starts, fabric attached to rope, trailing cloth, motion trails, branching/doubled rope, disconnected rope segments, body penetration, extra hands/limbs, face/wardrobe drift, morphing, ground/floor/stage, scenery, UI, text/logos, cuts, camera movement, green gradients, green spill, residual curtain.",
+    "resolution": "720p"
+  },
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "c18adfd0-af6e-428c-bc9d-9e92c985ee1e"
+    }
+  ],
+  "estimated_credits": 36,
+  "retries_allowed": false,
+  "user_authorization": "Fix curtain clip only: faster Tom, rope falls together with Tom, no trailing objects, natural cloth/rope physics."
+}

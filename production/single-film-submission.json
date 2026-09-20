@@ -1,0 +1,33 @@
+{
+  "job_id": "94f166e3-650b-4ee6-b71e-9f0a9df9d4c4",
+  "status": "submitted",
+  "user_authorization": "так генерируй , я тебе полностью дал все для генерации",
+  "generation_limit": 1,
+  "retries_allowed": false,
+  "estimated_credits": 36,
+  "params": {
+    "aspect_ratio": "16:9",
+    "bitrate_mode": "high",
+    "count": 1,
+    "duration": 8,
+    "generate_audio": false,
+    "medias": [
+      {
+        "role": "start_image",
+        "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+      },
+      {
+        "role": "image",
+        "value": "36d1603c-825c-4e13-b97c-d462951ea78b"
+      },
+      {
+        "role": "image",
+        "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+      }
+    ],
+    "mode": "std",
+    "model": "seedance_2_0",
+    "prompt": "Create ONE continuous 8-second premium stylized 3D website transition, fixed wide frontal camera, 16:9. No cuts. Not a commercial montage.\nREFERENCE PRIORITY: supplied start_image is the EXACT opening composition and definitive Uncle Tom identity, outfit, hat, beard, farm, lighting and supporting characters. Image reference 1 is the original Don Don Tom turnaround: ONE anthropomorphic tomato mafia boss, black pinstripe suit, black fedora with red band/feather, black moustache, cane. Multiple views show ONE character, never clones. Image reference 2 is STORYBOARD FOR DIRECTING ONLY: learn the red curtains, overhead rope, two-handed grip, downward body mechanics. NEVER render, crop, reuse or display any storyboard panel, border, caption or contact sheet. The updated chronological action below overrides the storyboard's older jump sequence.\n0.0–0.4s: Hold the supplied landing composition exactly. Preserve its existing artwork and lettering without reinterpreting them before occlusion.\n0.4–1.3s: Two enormous rich red stage curtains enter from opposite sides, completely covering the whole landing including every existing text and logo. Curtain fabric has convincing weight and folds.\n1.3–3.5s: The SAME Uncle Tom from the start frame descends briskly from above, BOTH hands gripping the very bottom end of a taut rope extending vertically to the top of frame. His weight pulls the curtains upward and apart, revealing the SAME farm and gardens behind them. No duplicate Tom remains in the background. Tom continues straight down and completely exits BELOW the bottom edge, feet first. His hat, face, ginger beard, cream shirt and brown overalls stay consistent with the start frame; no wardrobe change. Rope stays above his two hands, never through his body.\n3.5–4.1s: Only AFTER the curtains are fully open and Tom has exited, the rope detaches at its upper attachment and falls entirely out through the bottom after him. No suspended rope remains. Revealed farm keeps the same house, hangar, vegetation and light; landing UI and oversized landing logo do NOT return.\n4.1–5.0s: TWO rigid, blank, front-facing brand signboards fall from above onto the farm foreground with one small controlled impact and settle without deformation. Left sign occupies x27–45%, right sign x55–73%, tops around y51%, bottoms around y76%. Both sign faces stay entirely BLANK, clean and unlettered for exact original logo overlays in the website; no invented emblems. Stable horizontal upper edges, stationary after landing.\n5.0–7.0s: Simultaneously Uncle Tom naturally walks in from the LEFT toward the left sign, and original Don Don Tom walks in from the RIGHT toward the right sign. Each takes two grounded steps with visible weight transfer and planted feet. Tom stops outside the left sign and rests his RIGHT forearm on its TOP LEFT edge. Don stops outside the right sign and rests his LEFT forearm on its TOP RIGHT edge, cane in the other hand. Bodies stay outside the sign faces, arms do not obscure the central faces. Only these TWO characters in final foreground. Real contact and believable leaning weight.\n7.0–8.0s: Hold the settled final composition: original farm, left Tom leaning on left blank sign, right Don leaning on right blank sign. Clear safe margins, complete bodies in frame, faces stable, clean sign faces for clickable DOM logos. No camera motion, no reframing, no new action.\nNEGATIVE PROMPT: storyboard panels, reused storyboard pixels, collage, split screen, contact sheet, captions, new text, letters, generated logos, buttons, UI after curtain reveal, mutated Russian lettering, camera change, zoom, pan, cuts, dissolve montage, new characters, duplicate Tom, duplicate Don, morphing, flicker, face changes, wardrobe changes, disappearing hats, extra arms, extra fingers, missing hands, rope through body, one-handed grip, floating contact, sliding feet, elastic signboards, deformed objects, changing farm architecture, characters covering sign faces, audio, subtitles.",
+    "resolution": "720p"
+  }
+}

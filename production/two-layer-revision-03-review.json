@@ -1,0 +1,29 @@
+{
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "3f9c7ff4-f1dc-4fbd-a06f-74ccfa3533f5",
+      "model": "seedance_2_0",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3ISPeqg1PmrhB2w1Pa6ONjjm727/hf_20260911_102205_3f9c7ff4-f1dc-4fbd-a06f-74ccfa3533f5.mp4",
+      "status": "completed",
+      "thumbnail_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ISPeqg1PmrhB2w1Pa6ONjjm727/b9df2404-edd7-43b6-a9f8-0ab1d16a43f1.png",
+      "type": "video"
+    },
+    {
+      "index": 1,
+      "job_id": "75b15655-acdf-4a02-ab26-ee3291f6f3dc",
+      "model": "seedance_2_0",
+      "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3ISPeqg1PmrhB2w1Pa6ONjjm727/hf_20260911_102221_75b15655-acdf-4a02-ab26-ee3291f6f3dc.mp4",
+      "status": "completed",
+      "thumbnail_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ISPeqg1PmrhB2w1Pa6ONjjm727/b9df2404-edd7-43b6-a9f8-0ab1d16a43f1.png",
+      "type": "video"
+    }
+  ],
+  "verified_frames": {
+    "main_start": "Basket lettering and scenery sign lettering persist.",
+    "main_end": "Both large blank boards and both small green plaques present; small plaques retain arrows.",
+    "transition": "Tom still visible at 4.5s despite requested complete exit at 3.8s; final 7.8s frame has no curtain/Tom/rope, but green background has a gradient."
+  },
+  "accepted": false,
+  "regenerated": false
+}

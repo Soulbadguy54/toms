@@ -1,0 +1,19 @@
+{
+  "job_id": "c2e32e7a-9beb-475f-8bdb-2a7214e30868",
+  "source_job_id": "26b58e7c-d930-4b82-b10f-796a04fb4ddf",
+  "source_approved_by_user": true,
+  "status": "submitted",
+  "operation": "Remove all lettering only; preserve approved source motion and composition",
+  "estimated_credits": 15,
+  "params": {
+    "count": 1,
+    "medias": [
+      {
+        "role": "video",
+        "value": "26b58e7c-d930-4b82-b10f-796a04fb4ddf"
+      }
+    ],
+    "model": "flux_3_video_edit",
+    "prompt": "Perform a strictly localized text-removal edit on this EXACT source video. Erase ALL visible writing in EVERY frame, including the very first and very last frame: all Russian words, all English words, every letter, number, brand wordmark and logo lettering, text in navigation, headings, subtitles, the Ozon label, button labels, signs, packaging, the plane and small background signage. This includes 'Продукты', 'О нас', 'Контакты', 'мы на Ozon', 'Добро пожаловать в мир вкуса', 'Натуральные продукты для счастливой жизни', 'Листайте вниз', 'Выберите свой вкус', 'Два характера. Настоящий вкус.', 'ПРОДУКТЫ ДЯДИ ТОМА', 'Tom’s', 'Открыть каталог', 'Since 1999' and any other visible text. Inpaint ONLY the glyph pixels and their immediate anti-aliased edges with the exact underlying continuous material: matching sky, foliage, wood grain, cream panel or button fill. Keep wooden signs, green buttons, blue Ozon pill, logo illustrations and decorative leaves intact but completely unlettered. Do not remove entire objects or graphic shapes. NO blur, pixelation, black rectangles, censor bars, smudges, new symbols or replacement text. Preserve the source footage exactly in all other respects: same frame count and duration, resolution, crop, fixed camera, timing, identical character faces, hands, clothing and body motion, identical curtain closure and complete exit, identical rope movement and off-screen descent, identical farm, signboard trajectories, entrances, final poses, lighting, colors and composition. Do not regenerate, restyle, retime, stabilize, extend or re-stage the scene. Frames containing no lettering must remain unchanged. Output the original continuous silent video with only all text erased, clean temporally consistent textures in the erased regions, and no other changes."
+  }
+}

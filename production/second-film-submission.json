@@ -1,0 +1,33 @@
+{
+  "job_id": "26b58e7c-d930-4b82-b10f-796a04fb4ddf",
+  "status": "submitted",
+  "user_authorization": "делай еще одну генерацию видео",
+  "generation_limit_this_request": 1,
+  "retries_allowed": false,
+  "estimated_credits": 36,
+  "params": {
+    "aspect_ratio": "16:9",
+    "bitrate_mode": "high",
+    "count": 1,
+    "duration": 8,
+    "generate_audio": false,
+    "medias": [
+      {
+        "role": "start_image",
+        "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+      },
+      {
+        "role": "end_image",
+        "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+      },
+      {
+        "role": "image",
+        "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+      }
+    ],
+    "mode": "std",
+    "model": "seedance_2_0",
+    "prompt": "ONE continuous 8-second stylized 3D website transition. Use the supplied START IMAGE as the exact first frame and supplied END IMAGE as the exact final frame. The end image is the authoritative target composition: original Uncle Tom leaning at far left, original tomato mafia boss Don Don Tom leaning at far right, two large wooden brand signs, lush farm, house at right, no curtains anywhere. Preserve both characters' faces, clothing, hats, proportions and the supplied artwork. Third image is storyboard for staging ONLY, never render its panels or captions. Fixed frontal camera, no zoom, no cuts.\nCRITICAL LAYER ORDER during the rope action, nearest to camera first: Uncle Tom and the rope; behind them a completely opaque red curtain; behind the curtain ALL scenery, earth, signs, text, logo and UI. The curtain must cover the FULL rectangular viewport edge to edge, from top to bottom. No visible strip of ground, sky or sides; no see-through fabric; no gaps while closed. Tom and rope remain in front of the cloth.\n0.0–0.4s: exact supplied landing start state.\n0.4–1.4s: huge red theatrical curtains close fully across the image BEHIND Uncle Tom and his descending rope, covering every background pixel and all landing UI. Tom reaches and grips the very bottom end of the rope with BOTH hands; rope extends ABOVE his hands to the top edge.\n1.4–3.3s: Tom lowers rapidly straight DOWN in foreground SCREEN SPACE, holding the rope above his head. He is suspended in front of the curtain, with NO ground plane under him. His feet cross the bottom edge first, then legs, torso, head, and finally hands; he fully exits BELOW THE CAMERA'S RECTANGULAR FRAME. The last visible part is his hands near the bottom border. This is an off-screen exit, NOT sinking into earth, NOT a hole, NOT walking away into the background. Keep the opaque curtain covering the bottom ground behind his exit until he has fully cleared the frame. The same pulling action starts lifting the curtain.\n3.3–4.0s: once Tom has completely exited below the frame, the curtains lift vertically upward and COMPLETELY LEAVE THROUGH THE TOP EDGE. All cloth, side drapes, folds, pelmet and red fringe disappear entirely; not one red curtain pixel remains in the revealed scene. Reveal the lush farm composition and house shown in the END IMAGE, initially without the two foreground characters and two foreground signboards. Once the curtain is fully offscreen, the rope detaches at the top and falls through the bottom edge after Tom, with no ground impact and no rope remaining.\n4.0–4.9s: the two wooden signboards of the END IMAGE fall from above to their exact final positions, left and right. One small believable impact, then settle rigidly. Preserve original brand artwork, no invented lettering.\n4.9–7.1s: Uncle Tom re-enters from beyond the LEFT border and Don Don Tom from beyond the RIGHT border, at the same time. Both take grounded natural steps toward their own signboards and lean on their outer upper edges in the exact poses of the END IMAGE. Do not swap hands, signs or characters. Don retains black pinstripe suit, black fedora and cane. Both bodies stay outside the signs; logos remain clear.\n7.1–8.0s: arrive at and hold the EXACT supplied END IMAGE composition including original brand lettering and layout. No red curtain or rope in any part of the final frame. No camera change to reach the endpoint. Original Russian text and logos are reference artwork, do not redraw, invent or mutate them. Website will use original static artwork/DOM at rest to maintain crisp text and clickable catalog buttons.\nNEGATIVE PROMPT: Tom sinking into soil, ground swallowing character, hole in earth, disappearance into floor, feet intersecting ground during suspended exit, curtain stopping halfway, remaining side curtains, red valance, red fringe, visible backdrop while fully closed, curtain covering Tom, rope through body, rope below grip, missing hands, duplicated limbs, extra characters, duplicate Tom, disappearing hat, changed face, changed wardrobe, sliding feet, floating lean, fake contact, warped signs, invented text, gibberish Russian, mutated brand names, storyboard panels, contact sheet, collage, cuts, crossfades, camera pan, zoom, audio.",
+    "resolution": "720p"
+  }
+}

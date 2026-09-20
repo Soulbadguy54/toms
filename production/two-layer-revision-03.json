@@ -1,0 +1,67 @@
+{
+  "user_authorization": "Redo both videos, one iteration each. Faster Tom descent, clean rope, remove basket lettering, subtle motion for all characters, restore two blank small catalog plaques.",
+  "params": [
+    {
+      "aspect_ratio": "16:9",
+      "bitrate_mode": "high",
+      "count": 1,
+      "duration": 8,
+      "generate_audio": false,
+      "medias": [
+        {
+          "role": "image",
+          "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+        },
+        {
+          "role": "image",
+          "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+        },
+        {
+          "role": "image",
+          "value": "36d1603c-825c-4e13-b97c-d462951ea78b"
+        }
+      ],
+      "mode": "std",
+      "model": "seedance_2_0",
+      "prompt": "MATCHED WEBSITE LAYERS. Locked frontal camera, 16:9, 8 seconds, silent, stylized premium 3D, warm golden lighting. Preserve exact original identity from approved references: Uncle Tom's face, ginger beard/moustache, straw hat, cream shirt, brown bib overalls, boots, proportions. Both layers must depict this SAME Tom, never an older checkered-shirt variant. No redesign, no camera movement.\nMAIN WORLD VIDEO ONLY. Reference 1: landing world/characters. Reference 2: exact final farm composition and signage shapes. Reference 3: Don Don Tom original identity, multiple views of ONE character.\nMOST IMPORTANT CORRECTIONS:\n1. Crow's basket is entirely plain wicker. The front patch is plain woven wicker too, with NO letters, symbols, numbers, strokes, labels or pseudo-writing on ANY face. This applies from the FIRST frame throughout motion. Remove every other inscription/logo from scenery and props too.\n2. Keep TWO LARGE blank wooden brand boards AND TWO SMALL BLANK CATALOG PLAQUES directly below them. Four physical sign surfaces total, not two. Small plaques keep reference 2's elongated rounded shape, green-painted wooden face and light gold rim, exact proportions and placement under each large board (left centered x35%, y70%; right x66%, y72%). They are tangible blank props for later website text overlays. DO NOT OMIT THEM. No text and no arrow on either small plaque. Large boards have natural blank wood. Keep leaves and posts.\n3. ALL existing characters must be subtly alive, never a frozen illustration: Tom breathes/blinks and slightly shifts his head; dog moves paws/head and gently wags tail; the two running tomato characters take small natural steps; crow makes a small wingbeat while securely holding the basket, basket sways subtly; airplane advances slowly. Leaves sway. Keep movements restrained within original composition. No new characters.\nTIMELINE:\n0–2.0 seconds: retain the exact landing composition for TWO FULL SECONDS, with the subtle character activity above. No scene change yet. All text/logos already absent in frame zero, fill their former areas with natural continuing scenery.\n2.0–2.8 seconds: continue same landing composition; another separate layer covers it.\n2.8–2.9 seconds: single direct cut to reference 2's final farm background, initially without the foreground people or boards. This cut is hidden by a separate opaque curtain layer. No zoom or dissolve.\n2.9–4.8 seconds: final farm background, gentle foliage motion.\n4.8–5.4 seconds: the two sign assemblies drop into reference positions with restrained weighted impact. EACH assembly includes its LARGE BLANK WOOD board and SMALL BLANK GREEN PLAQUE underneath. Preserve all FOUR surfaces throughout settling.\n5.4–7.0 seconds: original Uncle Tom enters left, original Don Don Tom enters right simultaneously, takes natural short steps and leans on his own large sign exactly as reference 2. Don keeps black pinstripe suit, black fedora with red band/feather, moustache, cane. No sliding feet.\n7.0–8.0 seconds: hold final layout and stable signs, while BOTH characters continue subtle breathing, blinking, small eye/head movement. Forearms maintain natural contact with boards. Small lower plaques remain fully visible and empty.\nNEGATIVE: writing in any language, basket lettering, pseudo-letters, logos, numbers, captions, arrows, navigation, header, Ozon pill, watermark, erased-text blur, missing small plaques, missing boards, frozen characters, new characters, curtains, rope, chroma background, camera move, changing wardrobe, deformed hands, duplicates, storyboard panels. The two BLANK catalog plaques are explicitly REQUIRED; do not confuse removing their TEXT with removing the plaques.",
+      "resolution": "720p"
+    },
+    {
+      "aspect_ratio": "16:9",
+      "bitrate_mode": "high",
+      "count": 1,
+      "duration": 8,
+      "generate_audio": false,
+      "medias": [
+        {
+          "role": "image",
+          "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+        },
+        {
+          "role": "image",
+          "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+        },
+        {
+          "role": "image",
+          "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+        }
+      ],
+      "mode": "std",
+      "model": "seedance_2_0",
+      "prompt": "MATCHED WEBSITE LAYERS. Locked frontal camera, 16:9, 8 seconds, silent, stylized premium 3D, warm golden lighting. Preserve exact original identity from approved references: Uncle Tom's face, ginger beard/moustache, straw hat, cream shirt, brown bib overalls, boots, proportions. Both layers must depict this SAME Tom, never an older checkered-shirt variant. No redesign, no camera movement.\nISOLATED CURTAIN TRANSITION ONLY ON FLAT RGB(0,255,0) CHROMA GREEN.\nReferences 1 and 2 establish exact SAME Uncle Tom identity only; exclude their farm, UI, other characters. Reference 3 storyboard is directing reference ONLY, never render panels.\nForeground consists ONLY of deep-red velvet curtains, ONE Tom, ONE continuous tan rope. No green colors/spill on foreground. No floor, stage, earth or horizon.\nKEY CORRECTION: Tom's complete screen traversal takes 0.8 seconds, brisk and accelerating, approximately 50% faster than the previous requested 1.2-second descent. NO slow-motion, hover, pause or elevator drift.\nROPE TOPOLOGY: exactly ONE continuous unbranched rope of constant diameter, attached offscreen above, terminating at Tom's two-handed grip. Both hands grip its bottom end, one immediately above the other. No long tail below hands, loops around body, doubled segments, disconnected fragments, kinks, flicker, stretching or rope passing through fingers/hat/torso. Keep rope taut and almost vertical while weight is applied. Small gentle lateral deflection only. The pulley remains OFFSCREEN. After release the rope falls as a single continuous cord, not fragments.\nTIMELINE:\n0.0–2.0s: completely empty flat green, all foreground out of frame.\n2.0–2.7s: huge heavy opaque red curtains close from sides, completely covering frame TOP TO BOTTOM and EDGE TO EDGE. Weight and fold inertia, no green gaps.\n2.7–3.0s: completely closed curtain hold.\n3.0–3.8s: Tom appears from ABOVE already gripping rope with both hands; rapidly descends across foreground and exits ENTIRELY through BOTTOM camera boundary by 3.8s, including hands. Whole body about 65–70% frame height. Physically weighted accelerating descent, no ground. No stopping in center. Feet, legs, torso, head and hands successively leave frame.\n3.1–4.3s: his downward pull hoists all heavy curtain fabric UP through an unseen rig. Clear causal action: rope/Tom down, curtain UP. Folds respond with natural delay and inertia, never rubber stretch. Curtain OPENS and rises completely beyond TOP boundary; no remaining side wings, valance or red fringe. Behind it is only plain key green.\n4.3–4.7s: after the curtain has fully left, rope upper attachment releases. The SINGLE intact cord loses tension, has one mild natural curvature, falls downward after Tom, fully exits bottom. No rope splitting or broken floating sections.\n4.7–8.0s: entirely EMPTY uniform green; no Tom, rope, curtains, shadows or other objects.\nNEGATIVE: slow descent, levitation, rope artifacts, branching rope, duplicate rope, disappearing rope middle, disconnected segments, sharp zigzags, elastic cord, hand sliding, body penetration, duplicated limbs, morphing, green clothing, green spill, fabric remnants, ground, farm, floor, stage, text, logos, UI, storyboard panels, camera motion, cuts.",
+      "resolution": "720p"
+    }
+  ],
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "3f9c7ff4-f1dc-4fbd-a06f-74ccfa3533f5"
+    },
+    {
+      "index": 1,
+      "job_id": "75b15655-acdf-4a02-ab26-ee3291f6f3dc"
+    }
+  ],
+  "estimated_total_credits": 72,
+  "retries_allowed": false
+}

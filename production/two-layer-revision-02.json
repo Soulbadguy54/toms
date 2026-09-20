@@ -1,0 +1,67 @@
+{
+  "user_authorization": "One iteration per layer. Curtain opens, confirmed 2026-09-11.",
+  "params": [
+    {
+      "aspect_ratio": "16:9",
+      "bitrate_mode": "high",
+      "count": 1,
+      "duration": 8,
+      "generate_audio": false,
+      "medias": [
+        {
+          "role": "image",
+          "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+        },
+        {
+          "role": "image",
+          "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+        },
+        {
+          "role": "image",
+          "value": "36d1603c-825c-4e13-b97c-d462951ea78b"
+        }
+      ],
+      "mode": "std",
+      "model": "seedance_2_0",
+      "prompt": "MATCHED WEBSITE LAYER CONTRACT: fixed frontal camera, 1280x720, 16:9, 8 seconds, silent, premium stylized 3D, warm golden daylight. Uncle Tom must be EXACTLY the same man in both supplied approved composition images: same face, eyes, ginger beard and moustache, straw hat, cream shirt, brown bib overalls and brown boots; stable body proportions. Do not replace his cream shirt with an older checkered-shirt variant. Preserve identity, scale and materials. No new character design.\nOUTPUT A: MAIN WORLD PLATE ONLY. This is one of two synchronized clips; the theatrical transition is a SEPARATE foreground clip and must NOT appear here.\nReferences: image 1 defines initial landing scene geometry and Uncle Tom; image 2 defines final farm composition, wooden sign geometry and character poses; image 3 is the original Don Don Tom identity turnaround, multiple views of ONE tomato mafia boss, never duplicates.\nCRITICAL: ALL reference writing and interface are exclusions, not things to reproduce. From frame zero to the final frame there must be NO lettering in any language, no numbers, no wordmarks, no logos, no navigation, no headers, no button shapes, no blue pill, no green catalog button, no arrows, no captions. Remove the entire large decorative landing logo and fill its former area with the naturally continuing farm background. Remove lettering from the plane, basket, packaging and small scenery signs too. Keep final physical wooden brand boards, leaves, posts and their original natural wood surfaces, COMPLETELY BLANK. The website adds its own text, original logos and UI above this video.\nTIMELINE synchronized with a separate curtain layer:\n0.0–2.0s: HOLD the initial landing WORLD from reference 1, with all interface/lettering/logos absent. Tom in his original central placement, dog, tomatoes, crow, airplane, farmhouse, hangar and garden retain exact reference appearance. Minimal natural idle, not a new action.\n2.8–2.9s: ONE direct replacement to the final farm background of reference 2, initially WITHOUT either foreground character or either foreground wooden brand board. This change will be hidden behind the other clip's fully opaque curtain. No animated camera, no zoom, no dissolves, no black frame, no green background.\n2.9–4.8s: hold that exact final farm background, with its house on the right and garden/produce foreground. No curtains, no rope, no Uncle Tom descent, no character duplicates.\n4.8–5.4s: the two physical wooden boards fall from above and settle with one restrained impact into their EXACT positions and dimensions from reference 2: left blank board around x21–50%, y46–67%; right blank board x52–78%, y49–70%. Preserve their leaf framing and wooden posts. No text or UI on them.\n5.4–7.0s: both original characters enter simultaneously from opposite screen borders: Uncle Tom from the LEFT, Don Don Tom from the RIGHT. Natural short steps and weight transfer, then forearms contact the outer upper edges of their own boards exactly as reference 2. Don retains the original black pinstriped suit, fedora with red band/feather, black moustache, shoes and cane. Neither body occludes central board surfaces.\n7.0–8.0s: stable final composition matching reference 2 EXCEPT all text, all logos and all UI are absent. Blank boards remain. Both characters hold final leaning poses.\nNEGATIVE: curtains, red theatrical fabric, rope, chroma green, UI, typography, letters, logos, numbers, buttons, arrows, watermarks, subtitles, replacement symbols, blurred/censored text, body morphing, identity drift, extra limbs, sliding feet, deforming boards, camera movement, new architecture, storyboard panels.\nREVISION PRIORITIES: The landing composition MUST remain visible for the first TWO FULL SECONDS (frames 0–47 at 24fps). Continue holding this same world until 2.8 seconds while the separate curtain closes. Do not transition early. REMOVE EVERY MARK FROM FRAME ZERO: the crow's basket is plain unmarked wicker, the small wooden sign behind Tom is plain wood, airplane fuselage and every package are plain material. No tiny lettering, pseudo-writing, numbers or decorative glyphs anywhere. Fill the former landing logo area with real continuous sky and farm, not a white cloud-shaped blank logo silhouette. Preserve the original approved character and world designs. All text and logos are external DOM layers and must never be burned into this plate.",
+      "resolution": "720p"
+    },
+    {
+      "aspect_ratio": "16:9",
+      "bitrate_mode": "high",
+      "count": 1,
+      "duration": 8,
+      "generate_audio": false,
+      "medias": [
+        {
+          "role": "image",
+          "value": "b9df2404-edd7-43b6-a9f8-0ab1d16a43f1"
+        },
+        {
+          "role": "image",
+          "value": "2ca93c95-838c-4cf4-a172-6e137e5e2ad2"
+        },
+        {
+          "role": "image",
+          "value": "50fcb7ff-10d3-4d1f-9013-29f6ef12682e"
+        }
+      ],
+      "mode": "std",
+      "model": "seedance_2_0",
+      "prompt": "MATCHED WEBSITE LAYER CONTRACT: fixed frontal camera, 1280x720, 16:9, 8 seconds, silent, premium stylized 3D, warm golden daylight. Uncle Tom must be EXACTLY the same man in both supplied approved composition images: same face, eyes, ginger beard and moustache, straw hat, cream shirt, brown bib overalls and brown boots; stable body proportions. Do not replace his cream shirt with an older checkered-shirt variant. Preserve identity, scale and materials. No new character design.\nOUTPUT B: ISOLATED THEATRICAL FOREGROUND TRANSITION ON CHROMA GREEN. This will be keyed and composited ABOVE a separate farm video and website UI. Render ONLY red stage curtains, ONE original Uncle Tom and ONE tan rope against a perfectly flat uniformly lit saturated key-green background RGB(0,255,0). No farm, landscape, floor, ground, stage, horizon, UI, writing, logo, donor character or other props.\nImage 1 and image 2 are identity references for the SAME Uncle Tom only: do not render their backgrounds, signage, UI, logos, text or other characters. Image 3 storyboard is ONLY directing reference for curtain fullness, two-handed end-of-rope grip and offscreen descent. NEVER render storyboard panels or captions.\nNo green pixels or green-colored details on Tom, hat, clothes, rope or curtains. Preserve his brown/cream/tan/ginger/red palette. No green spill, no green reflected light, no green garment accessory. Clean opaque foreground edges, no transparency in fabric, minimal motion blur to permit clean keying.\nEXACT SYNC TIMELINE:\n0.0–2.0s: absolutely EMPTY uniform RGB(0,255,0) green. Hold two full seconds, so the separate landing remains visible.\n2.0–2.7s: two enormous heavy opaque red velvet theatrical curtains close inward until they cover the ENTIRE rectangular frame edge-to-edge, top-to-bottom. Weighted hems and deep folds carry believable inertia. No gaps.\n2.7–3.0s: hold fully closed. The world plate changes at 2.8s underneath this fully opaque cover.\n3.0–4.2s: ONE original Uncle Tom enters briskly from ABOVE, already gripping the lower end of ONE tan rope with BOTH hands above his head. His weight pulls the taut rope DOWN through an unseen overhead theatre pulley, thereby hoisting the curtain UP at the same time. Clear causal motion: Tom drops, rope travels down, curtain gathers upward under tension. Curtain folds trail and lag naturally, heavy velvet hem accelerates smoothly, no rubber stretching. Rope stays taut under Tom's load, slight believable lateral sway, not a rigid rod, not elastic spaghetti. Hands maintain a fixed two-handed grip, rope never passes through body. Tom accelerates quickly downward, with realistic body weight and bent knees, not a slow elevator. He passes in FRONT of curtain. At this scale his full height is about 70% frame height. Entire body including raised hands exits through the BOTTOM CAMERA BORDER by 4.2s. There is NO floor or ground. He never sinks into any surface.\n3.2–4.5s: as Tom pulls down, ALL curtain fabric is hoisted upward and completely leaves through TOP edge, revealing only flat key green. No side wings, pelmet, fringe or red remnants. The curtain OPENS, never closes behind falling Tom. Tom's downward pull drives the upward opening.\n4.5–4.8s: only AFTER all curtain fabric is offscreen, rope releases from upper attachment, loses tension, forms one natural falling curve and drops out through bottom after Tom. No ground impact.\n4.8–8.0s: absolutely EMPTY flat RGB(0,255,0), no curtains, characters, rope, shadows or other objects.\nNEGATIVE: slow floating descent, weightless cloth, rubber rope, rigid stick rope, rope through hands/body, gravity-defying folds, green on foreground, green spill, gradients on key background, farm, ground, floor, stage, sinking, residual curtain, second Tom, Don Don Tom, text, lettering, logos, UI, buttons, digits, watermark, storyboard panels, cuts, camera changes, new character design, extra limbs, morphing.",
+      "resolution": "720p"
+    }
+  ],
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "02e88ab9-c946-4580-83e4-93741ebd999e"
+    },
+    {
+      "index": 1,
+      "job_id": "eedc1b1d-da6e-46c9-86c4-ca8f38fa8bdd"
+    }
+  ],
+  "estimated_total_credits": 72,
+  "retries_allowed": false
+}
