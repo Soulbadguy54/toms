@@ -342,3 +342,46 @@ html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;
 
 .book-catalog .book-ink,.book-catalog .catalog-popover{transition:opacity .22s ease,filter .22s ease}
 .book-catalog.book-ink-hidden .book-ink,.book-catalog.book-ink-hidden .catalog-popover{opacity:0;filter:blur(1.5px)}
+
+
+/* Native Tom's book turn: the cinematic entrance stops on a still frame,
+   then a real 3D paper layer handles page navigation. */
+.book-catalog-toms{perspective:1500px;perspective-origin:50% 48%}
+.book-live-pages{position:absolute;inset:0;z-index:4;pointer-events:none;perspective:1500px;transform-style:preserve-3d}
+.book-live-page{position:absolute;top:20.2%;height:67.5%;background:linear-gradient(100deg,#f4dfb820,#fff7e315 48%,#d6b98318);box-shadow:inset 0 0 28px #7b4e1b12}
+.book-live-left{left:17.6%;width:36.7%;clip-path:polygon(3% 0,100% 8%,96% 100%,0 91%);transform:rotateZ(10.2deg)}
+.book-live-right{left:54.2%;width:35.5%;clip-path:polygon(0 7%,96% 0,100% 91%,4% 100%);transform:rotateZ(-2.7deg)}
+.book-turn-sheet{position:absolute;z-index:6;top:20.2%;height:67.5%;transform-style:preserve-3d;will-change:transform;pointer-events:none}
+.turn-sheet-forward{left:54.2%;width:35.5%;transform-origin:0 50%;animation:book-turn-forward .62s cubic-bezier(.42,.02,.2,1) both}
+.turn-sheet-backward{left:17.6%;width:36.7%;transform-origin:100% 50%;animation:book-turn-backward .62s cubic-bezier(.42,.02,.2,1) both}
+.book-turn-face{position:absolute;inset:0;overflow:hidden;border-radius:1.5% 3% 3% 1.5%;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:
+ radial-gradient(circle at 70% 18%,#fff8e9 0,#f7e7c9 44%,#e3c99e 100%);
+ box-shadow:0 10px 24px #38200b30,inset 0 0 24px #8f5f2220}
+.book-turn-front{transform:rotateY(0)}
+.book-turn-back{transform:rotateY(180deg);background:
+ radial-gradient(circle at 34% 18%,#fff8e7 0,#f3dfbd 46%,#d9ba8e 100%)}
+.turn-sheet-forward .book-turn-face{clip-path:polygon(0 7%,96% 0,100% 91%,4% 100%)}
+.turn-sheet-backward .book-turn-face{clip-path:polygon(3% 0,100% 8%,96% 100%,0 91%)}
+.turn-sheet-copy{position:absolute;left:16%;right:12%;top:15%;display:flex;flex-direction:column;gap:13px;color:#39261a;transform:rotateZ(-2.4deg);font-family:Georgia,'Times New Roman',serif;text-shadow:0 1px 0 #fff6da80}
+.turn-sheet-backward .turn-sheet-copy{left:14%;right:15%;transform:rotateZ(9.7deg)}
+.turn-sheet-copy>span{font:700 10px/1.2 Arial,sans-serif;letter-spacing:2.2px}
+.turn-sheet-copy>strong{font-size:26px;line-height:1.05;margin-bottom:6px}
+.turn-sheet-copy>i{font-style:normal;font-size:18px;font-weight:600;line-height:1.2}
+.book-catalog-toms.is-turning .catalog-popover{opacity:0!important}
+.book-catalog-toms.turn-forward .toms-page-right,
+.book-catalog-toms.turn-backward .toms-page-left{opacity:0;transition:opacity .08s linear}
+@keyframes book-turn-forward{
+ 0%{transform:rotateZ(-2.7deg) rotateY(0deg) translateZ(1px);filter:brightness(1)}
+ 42%{filter:brightness(.88);box-shadow:-20px 10px 34px #24140545}
+ 58%{filter:brightness(.95)}
+ 100%{transform:translateX(-103%) rotateZ(10.2deg) rotateY(-179.5deg) translateZ(1px);filter:brightness(1)}
+}
+@keyframes book-turn-backward{
+ 0%{transform:rotateZ(10.2deg) rotateY(0deg) translateZ(1px);filter:brightness(1)}
+ 42%{filter:brightness(.88)}
+ 58%{filter:brightness(.95)}
+ 100%{transform:translateX(103%) rotateZ(-2.7deg) rotateY(179.5deg) translateZ(1px);filter:brightness(1)}
+}
+@media(prefers-reduced-motion:reduce){
+ .turn-sheet-forward,.turn-sheet-backward{animation-duration:.01ms}
+}
