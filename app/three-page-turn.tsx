@@ -33,6 +33,10 @@ function cropPage(image:HTMLImageElement, side:"left"|"right"){
 
 export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:Props){
   const host=useRef<HTMLDivElement>(null);
+  const midpointRef=useRef(onMidpoint);
+  const doneRef=useRef(onDone);
+  midpointRef.current=onMidpoint;
+  doneRef.current=onDone;
 
   useEffect(()=>{
     const el=host.current;
@@ -120,7 +124,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
 
         if(!midpointSent&&t>=.5){
           midpointSent=true;
-          onMidpoint();
+          midpointRef.current();
         }
 
         // Bend profile: binding stays fixed while outer edge lifts and curls.
@@ -152,12 +156,12 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
         renderer.render(scene,camera);
 
         if(t<1)raf=requestAnimationFrame(render);
-        else onDone();
+        else doneRef.current();
       };
       raf=requestAnimationFrame(render);
     };
 
-    image.onerror=()=>{if(!disposed)onDone();};
+    image.onerror=()=>{if(!disposed)doneRef.current();};
 
     return()=>{
       disposed=true;
@@ -165,7 +169,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
       renderer.dispose();
       renderer.domElement.remove();
     };
-  },[direction,sourcePage,onMidpoint,onDone]);
+  },[direction,sourcePage]);
 
   return <div ref={host} className="three-page-turn" aria-hidden="true"/>;
 }
