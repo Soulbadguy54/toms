@@ -43,7 +43,7 @@ button,a{touch-action:manipulation}button{min-height:44px}.skip-link{position:fi
 @media(max-width:700px){.toms-ranges{grid-template-columns:1fr}.toms-ranges h3{font-size:28px}footer{flex-wrap:wrap}}
 @media(max-aspect-ratio:4/5){.sign-link>span{display:none}}
 /* Two full-screen scenes; scrolling advances the film inside a fixed viewport. */
-html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;inset:0;width:100%;height:100svh;overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;scrollbar-width:none}.world::-webkit-scrollbar{display:none}.world-track{height:250svh;position:relative}.world-stage{position:sticky;top:0;height:100svh}.world-static .world-track{height:100svh}
+html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;inset:0;width:100%;height:100svh;overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;scrollbar-width:none}.world::-webkit-scrollbar{display:none}.world-track{height:500svh;position:relative}.world-stage{position:sticky;top:0;height:100svh}.world-static .world-track{height:100svh}
 .world-nav{top:1.5%;left:15%;right:15%;height:8%;justify-content:center;gap:clamp(18px,2.6cqw,46px);font-size:clamp(16px,1.65cqw,27px)}
 .world-nav>button{
   display:inline-flex;
@@ -67,7 +67,7 @@ html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;
 .world-nav>button:active{transform:translateY(2px);box-shadow:inset 0 0 0 1px #fff5ce63,0 1px 0 #8b632f,0 4px 10px #17351e2e}
 .world-ozon{box-shadow:0 3px 15px #005bff35;border:2px solid white;padding:.5em 1em}
 .world-intro{left:4%;top:18%;width:33%;padding:0;background:none;box-shadow:none;backdrop-filter:none;border-radius:0;text-align:center}.world-intro>.landing-brand{width:85%;height:auto;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:50%;mix-blend-mode:normal;margin:0 auto 1.2cqw;box-shadow:0 5px 28px #1a361923}.world-intro h1{font-size:3.2cqw;text-shadow:0 2px 14px #fff9eb}.world-intro p{font-size:1.2cqw;text-shadow:0 1px 8px white}.existing-catalog-overlay{position:fixed;inset:0;z-index:50;overflow-y:auto;background:var(--cream)}.existing-catalog-overlay[hidden]{display:none}.existing-catalog-overlay[data-brand=ut] .catalog-toms,.existing-catalog-overlay[data-brand=toms] .catalog-ut{display:none}.existing-catalog-overlay .header{position:sticky}.world-mobile-links{display:none}.site>footer[hidden]{display:none}
-@media(max-aspect-ratio:4/5){.world-track{height:245svh}.world-nav{left:4%;right:4%;top:-21%;height:18%;gap:18px;font-size:16px}.world-nav button:nth-of-type(3){display:none}.world-intro{display:block;left:3%;top:15%;width:32%}.world-intro>.landing-brand{width:90%;margin-bottom:1cqw}.world-intro h1{font-size:3.5cqw}.world-intro p{display:none}.world-caption{padding-top:22px}.world-mobile-links{display:none}.world-controls{bottom:25px}.world-static .world-stage{position:sticky}}
+@media(max-aspect-ratio:4/5){.world-track{height:490svh}.world-nav{left:4%;right:4%;top:-21%;height:18%;gap:18px;font-size:16px}.world-nav button:nth-of-type(3){display:none}.world-intro{display:block;left:3%;top:15%;width:32%}.world-intro>.landing-brand{width:90%;margin-bottom:1cqw}.world-intro h1{font-size:3.5cqw}.world-intro p{display:none}.world-caption{padding-top:22px}.world-mobile-links{display:none}.world-controls{bottom:25px}.world-static .world-stage{position:sticky}}
 
 /* Logo cleanup and controls pass, 13 September 2026. */
 .site{
