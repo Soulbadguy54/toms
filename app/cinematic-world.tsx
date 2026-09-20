@@ -217,10 +217,12 @@ const bottlePlaceholder='https://images.unsplash.com/photo-1603824255873-bb3608d
 function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTurnPage:(direction:1|-1)=>void}){
  const [hovered,setHovered]=useState<CatalogProduct|null>(null);
  const [turning,setTurning]=useState<1|-1|0>(0);
+ const [turnSource,setTurnSource]=useState(0);
  const turnPage=(direction:1|-1)=>{
   if(turning||(direction>0&&page===1)||(direction<0&&page===0))return;
-  setHovered(null);setTurning(direction);
-  window.setTimeout(()=>{onTurnPage(direction);setTurning(0);},620);
+  setHovered(null);setTurnSource(page);setTurning(direction);
+  window.setTimeout(()=>onTurnPage(direction),310);
+  window.setTimeout(()=>setTurning(0),620);
  };
  const tomsPages:CatalogProduct[][]=[
   [
@@ -293,7 +295,13 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
     <div className="book-live-page book-live-left"/>
     <div className="book-live-page book-live-right"/>
     {turning!==0&&<div className={`book-turn-sheet ${turning>0?'turn-sheet-forward':'turn-sheet-backward'}`}>
-      <div className="book-turn-face book-turn-front"/>
+      <div className="book-turn-face book-turn-front">
+       <div className="turn-sheet-copy">
+        <span>{turnSource===0?(turning>0?"CHEF’S CHOICE":"TOM’S · SAUCE COLLECTION"):(turning>0?"TOM’S · KETCHUP":"TOM’S · JUICE BAR")}</span>
+        <strong>{turnSource===0?(turning>0?'Азиатская линия':'Соусы'):(turning>0?'Кетчупы':'Соки 0,2 л')}</strong>
+        {(tomsPages[turnSource]||[]).filter(product=>turning>0?product.x>=650:product.x<650).map(product=><i key={product.id}>{product.label}</i>)}
+       </div>
+      </div>
       <div className="book-turn-face book-turn-back"/>
     </div>}
    </div>
