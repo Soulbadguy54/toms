@@ -18,7 +18,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
  const actions=useRef({choose:()=>{},open:(_brand:Destination)=>{},back:()=>{},flip:(_direction:1|-1=1)=>{},hover:(_character:Character|null)=>{},retry:()=>{}});
  const [view,setView]=useState<View>('landing'),[ready,setReady]=useState(false);
  const [destination,setDestination]=useState<Destination|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(false),[loading,setLoading]=useState(false);
- const [catalogPage,setCatalogPage]=useState(0);
+ const [catalogPage,setCatalogPage]=useState(0),[catalogInkHidden,setCatalogInkHidden]=useState(false);
  const [bootProgress,setBootProgress]=useState(0),[bootReady,setBootReady]=useState(false);
  const hoverCanvas=useRef<HTMLCanvasElement>(null);
  const progressBar=useRef<HTMLSpanElement>(null);
@@ -98,7 +98,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
 
   // Advance only after a frame is available. A slow connection never creates blanks
   // or skips the first part of a brand entrance; decoded frames stay memory-bounded.
-  const play=async(name:SequenceName,from:number,to:number,anchor?:HTMLCanvasElement)=>{
+  const play=async(name:SequenceName,from:number,to:number,anchor?:HTMLCanvasElement,onFrame?:(progress:number)=>void)=>{
    const direction=to>=from?1:-1,epoch=revision;
    if(media.matches){const image=await cache.get(name,to);if(!stopped&&epoch===revision){ctx.drawImage(image,0,0,1280,720);frame=to;}return;}
    for(let i=from;direction>0?i<=to:i>=to;i+=direction){
@@ -112,6 +112,8 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
     ctx.drawImage(image,0,0,1280,720);ctx.restore();
     if(anchor&&i<12){ctx.globalAlpha=1-smooth(i/12);ctx.drawImage(anchor,0,0);ctx.globalAlpha=1;}
     frame=i;setReady(true);
+    const distance=Math.abs(to-from)||1;
+    onFrame?.(Math.min(1,Math.abs(i-from)/distance));
     await new Promise<void>(resolve=>setTimeout(resolve,Math.max(0,1000/24-(performance.now()-start))));
    }
   };
@@ -151,12 +153,13 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
   const flip=async(direction:1|-1=1)=>{
    if(animating||active!=='toms')return;
    if((direction>0&&flipped)||(direction<0&&!flipped))return;
-   animating=true;setBusy(true);
+   animating=true;setBusy(true);setCatalogInkHidden(false);
+   const syncInk=(progress:number)=>{if(progress>=.68&&!stopped)setCatalogInkHidden(true);};
    try{
-    if(direction>0)await play('toms-pages',0,sequences['toms-pages']-1);
-    else await play('toms-pages',sequences['toms-pages']-1,0);
-    flipped=direction>0;setCatalogPage(flipped?1:0);
-   }catch{if(!stopped){setError(true);setCatalogPage(flipped?1:0);}}
+    if(direction>0)await play('toms-pages',0,sequences['toms-pages']-1,undefined,syncInk);
+    else await play('toms-pages',sequences['toms-pages']-1,0,undefined,syncInk);
+    flipped=direction>0;setCatalogPage(flipped?1:0);setCatalogInkHidden(false);
+   }catch{if(!stopped){setError(true);setCatalogPage(flipped?1:0);setCatalogInkHidden(false);}}
    finally{animating=false;if(!stopped)setBusy(false);}
   };
   const choose=()=>{if(active)return;root.current?.scrollTo({top:trigger.end,behavior:media.matches?'instant':'smooth'});};
@@ -193,7 +196,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
       <a className="sign-link sign-toms" href="#catalog-toms" onClick={e=>{e.preventDefault();actions.current.open('toms');}} aria-label="Открыть каталог Tom’s"><img src="/toms-logo-transparent.png" alt="Tom’s"/></a>
      </div>
     </div>
-    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage} onTurnPage={direction=>actions.current.flip(direction)}/>} 
+    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage} inkHidden={catalogInkHidden} onTurnPage={direction=>actions.current.flip(direction)}/>} 
     {destination==='about'&&view==='destination'&&<div className="projection-video"><video src="/video/world.mp4" aria-label="Пример видео на экране Дяди Тома" controls autoPlay muted playsInline loop preload="metadata"/></div>}
     <canvas ref={overlay} className="world-curtain" width={1280} height={720} aria-hidden="true"/>
    </div>
@@ -218,7 +221,7 @@ type CatalogProduct={
 const tomatoPlaceholder='https://images.unsplash.com/photo-1594567170531-bb0a139aaba3?auto=format&fit=crop&w=640&q=82';
 const bottlePlaceholder='https://images.unsplash.com/photo-1603824255873-bb3608d7e545?auto=format&fit=crop&w=640&q=82';
 
-function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTurnPage:(direction:1|-1)=>void}){
+function BookCatalog({brand,page,inkHidden,onTurnPage}:{brand:'ut'|'toms';page:number;inkHidden:boolean;onTurnPage:(direction:1|-1)=>void}){
  const [hovered,setHovered]=useState<CatalogProduct|null>(null);
  const tomsPages:CatalogProduct[][]=[
   [
@@ -255,7 +258,7 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
    onPointerEnter={()=>setHovered(product)} onPointerLeave={()=>setHovered(null)}
    onFocus={()=>setHovered(product)} onBlur={()=>setHovered(null)}>{product.label}</text>
  );
- return <div className={`book-catalog book-catalog-${brand}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
+ return <div className={`book-catalog book-catalog-${brand}${inkHidden?' book-ink-hidden':''}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
   <svg viewBox="0 0 1280 720" aria-hidden="false">
    {brand==='ut'?<>
     <g className="book-ink ut-page-left book-perspective-left" transform="translate(410 185) rotate(10.6) skewY(1.4) scale(.985 1)">
