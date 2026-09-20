@@ -55,7 +55,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
     el.appendChild(renderer.domElement);
 
     const scene=new THREE.Scene();
-    const camera=new THREE.OrthographicCamera(0,WIDTH,0,HEIGHT,-1000,1000);
+    const camera=new THREE.OrthographicCamera(0,WIDTH,HEIGHT,0,-1000,1000);
     camera.position.z=300;
 
     const ambient=new THREE.AmbientLight(0xffffff,1.05);
@@ -103,7 +103,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
         HEIGHT-(p.y+p.h/2),
         10
       );
-      mesh.rotation.z=THREE.MathUtils.degToRad(p.angle);
+      mesh.rotation.z=0;
       scene.add(mesh);
 
       // Soft shadow beneath the turning page.
@@ -111,7 +111,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
       const shadowMat=new THREE.MeshBasicMaterial({color:0x24170b,transparent:true,opacity:0,depthWrite:false});
       const shadow=new THREE.Mesh(shadowGeo,shadowMat);
       shadow.position.set(mesh.position.x+(direction>0?p.w*.5:-p.w*.5),mesh.position.y,-4);
-      shadow.rotation.z=mesh.rotation.z;
+      shadow.rotation.z=0;
       scene.add(shadow);
 
       const start=performance.now();
@@ -135,14 +135,15 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
           const u=Math.max(0,Math.min(1,normalized));
 
           const turn=Math.PI*eased;
-          const localAngle=turn*(.22+.78*u);
-          const radius=p.w*(.38+.24*(1-u));
-          const arc=radius*Math.sin(localAngle)*u;
-          const fold=radius*(1-Math.cos(localAngle))*u;
+          const localAngle=turn*(.18+.82*u);
+          const sign=direction>0?1:-1;
 
-          const x=direction>0?arc:-arc;
-          const z=fold + Math.sin(Math.PI*u)*Math.sin(Math.PI*eased)*34;
-          const y=oy + Math.sin(Math.PI*u)*Math.sin(Math.PI*eased)*8;
+          // t=0 reproduces the source page exactly. As the animation advances,
+          // each vertical strip rotates progressively more than the strip before it.
+          const x=sign*p.w*u*Math.cos(localAngle);
+          const z=p.w*u*Math.sin(localAngle)*.58
+            + Math.sin(Math.PI*u)*Math.sin(Math.PI*eased)*28;
+          const y=oy + Math.sin(Math.PI*u)*Math.sin(Math.PI*eased)*7;
 
           pos.setXYZ(i,x,y,z);
         }
