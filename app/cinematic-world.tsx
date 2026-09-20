@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ArrowUpRight,RotateCcw} from 'lucide-react';
 import {createCurtainRenderer} from './video-compositor';
+import ThreePageTurn from './three-page-turn';
 import {FrameSequenceCache,frameUrl,sequences,type SequenceName} from './frame-sequence';
 const ozon='https://www.ozon.ru/search/?text=Продукты%20Дяди%20Тома';
 type Destination='ut'|'toms'|'about';
@@ -221,8 +222,6 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
  const turnPage=(direction:1|-1)=>{
   if(turning||(direction>0&&page===1)||(direction<0&&page===0))return;
   setHovered(null);setTurnSource(page);setTurning(direction);
-  window.setTimeout(()=>onTurnPage(direction),310);
-  window.setTimeout(()=>setTurning(0),620);
  };
  const tomsPages:CatalogProduct[][]=[
   [
@@ -291,20 +290,12 @@ function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTu
    <div><strong>{hovered.label}</strong><p>{hovered.description}</p></div>
   </div>}
   {brand==='toms'&&<>
-   <div className="book-live-pages" aria-hidden="true">
-    <div className="book-live-page book-live-left"/>
-    <div className="book-live-page book-live-right"/>
-    {turning!==0&&<div className={`book-turn-sheet ${turning>0?'turn-sheet-forward':'turn-sheet-backward'}`}>
-      <div className="book-turn-face book-turn-front">
-       <div className="turn-sheet-copy">
-        <span>{turnSource===0?(turning>0?"CHEF’S CHOICE":"TOM’S · SAUCE COLLECTION"):(turning>0?"TOM’S · KETCHUP":"TOM’S · JUICE BAR")}</span>
-        <strong>{turnSource===0?(turning>0?'Азиатская линия':'Соусы'):(turning>0?'Кетчупы':'Соки 0,2 л')}</strong>
-        {(tomsPages[turnSource]||[]).filter(product=>turning>0?product.x>=650:product.x<650).map(product=><i key={product.id}>{product.label}</i>)}
-       </div>
-      </div>
-      <div className="book-turn-face book-turn-back"/>
-    </div>}
-   </div>
+   {turning!==0&&<ThreePageTurn
+    direction={turning}
+    sourcePage={turnSource}
+    onMidpoint={()=>onTurnPage(turning)}
+    onDone={()=>setTurning(0)}
+   />}
    <button className="book-page-edge book-page-edge-left" type="button" aria-label="Предыдущая страница" disabled={page===0||!!turning} onClick={()=>turnPage(-1)}><span>‹</span></button>
    <button className="book-page-edge book-page-edge-right" type="button" aria-label="Следующая страница" disabled={page===1||!!turning} onClick={()=>turnPage(1)}><span>›</span></button>
   </>}
