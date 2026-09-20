@@ -18,7 +18,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
  const actions=useRef({choose:()=>{},open:(_brand:Destination)=>{},back:()=>{},flip:(_direction:1|-1=1)=>{},hover:(_character:Character|null)=>{},retry:()=>{}});
  const [view,setView]=useState<View>('landing'),[ready,setReady]=useState(false);
  const [destination,setDestination]=useState<Destination|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(false),[loading,setLoading]=useState(false);
- const [catalogPage,setCatalogPage]=useState(0),[catalogInkHidden,setCatalogInkHidden]=useState(false);
+ const [catalogPage,setCatalogPage]=useState(0);
  const [bootProgress,setBootProgress]=useState(0),[bootReady,setBootReady]=useState(false);
  const hoverCanvas=useRef<HTMLCanvasElement>(null);
  const progressBar=useRef<HTMLSpanElement>(null);
@@ -150,17 +150,10 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
    }catch{if(!stopped){setError(true);changeView('destination');}}
    finally{animating=false;if(!stopped)setBusy(false);}
   };
-  const flip=async(direction:1|-1=1)=>{
-   if(animating||active!=='toms')return;
-   if((direction>0&&flipped)||(direction<0&&!flipped))return;
-   animating=true;setBusy(true);setCatalogInkHidden(false);
-   const syncInk=(progress:number)=>{if(progress>=.68&&!stopped)setCatalogInkHidden(true);};
-   try{
-    if(direction>0)await play('toms-pages',0,sequences['toms-pages']-1,undefined,syncInk);
-    else await play('toms-pages',sequences['toms-pages']-1,0,undefined,syncInk);
-    flipped=direction>0;setCatalogPage(flipped?1:0);setCatalogInkHidden(false);
-   }catch{if(!stopped){setError(true);setCatalogPage(flipped?1:0);setCatalogInkHidden(false);}}
-   finally{animating=false;if(!stopped)setBusy(false);}
+  const flip=(direction:1|-1=1)=>{
+   if(active!=='toms')return;
+   if(direction>0&&!flipped){flipped=true;setCatalogPage(1);}
+   else if(direction<0&&flipped){flipped=false;setCatalogPage(0);}
   };
   const choose=()=>{if(active)return;root.current?.scrollTo({top:trigger.end,behavior:media.matches?'instant':'smooth'});};
   actions.current={choose,hover:character=>{void hover(character);},open:brand=>{void open(brand);},back:()=>{void back();},flip:direction=>{void flip(direction);},retry:()=>{setError(false);if(active){const brand=active;active=null;animating=false;void open(brand);}else{last=-1;void paint();}}};
@@ -196,7 +189,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
       <a className="sign-link sign-toms" href="#catalog-toms" onClick={e=>{e.preventDefault();actions.current.open('toms');}} aria-label="Открыть каталог Tom’s"><img src="/toms-logo-transparent.png" alt="Tom’s"/></a>
      </div>
     </div>
-    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage} inkHidden={catalogInkHidden} onTurnPage={direction=>actions.current.flip(direction)}/>} 
+    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage} onTurnPage={direction=>actions.current.flip(direction)}/>} 
     {destination==='about'&&view==='destination'&&<div className="projection-video"><video src="/video/world.mp4" aria-label="Пример видео на экране Дяди Тома" controls autoPlay muted playsInline loop preload="metadata"/></div>}
     <canvas ref={overlay} className="world-curtain" width={1280} height={720} aria-hidden="true"/>
    </div>
@@ -221,8 +214,14 @@ type CatalogProduct={
 const tomatoPlaceholder='https://images.unsplash.com/photo-1594567170531-bb0a139aaba3?auto=format&fit=crop&w=640&q=82';
 const bottlePlaceholder='https://images.unsplash.com/photo-1603824255873-bb3608d7e545?auto=format&fit=crop&w=640&q=82';
 
-function BookCatalog({brand,page,inkHidden,onTurnPage}:{brand:'ut'|'toms';page:number;inkHidden:boolean;onTurnPage:(direction:1|-1)=>void}){
+function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTurnPage:(direction:1|-1)=>void}){
  const [hovered,setHovered]=useState<CatalogProduct|null>(null);
+ const [turning,setTurning]=useState<1|-1|0>(0);
+ const turnPage=(direction:1|-1)=>{
+  if(turning||(direction>0&&page===1)||(direction<0&&page===0))return;
+  setHovered(null);setTurning(direction);
+  window.setTimeout(()=>{onTurnPage(direction);setTurning(0);},620);
+ };
  const tomsPages:CatalogProduct[][]=[
   [
    {id:'sweet-chili',label:'Sweet Chili',description:'Текст-заглушка для описания продукта. Здесь позже появятся вкус, состав, формат упаковки и рекомендации по подаче.',image:bottlePlaceholder,x:240,y:274,popup:['30%','51%']},
@@ -258,7 +257,7 @@ function BookCatalog({brand,page,inkHidden,onTurnPage}:{brand:'ut'|'toms';page:n
    onPointerEnter={()=>setHovered(product)} onPointerLeave={()=>setHovered(null)}
    onFocus={()=>setHovered(product)} onBlur={()=>setHovered(null)}>{product.label}</text>
  );
- return <div className={`book-catalog book-catalog-${brand}${inkHidden?' book-ink-hidden':''}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
+ return <div className={`book-catalog book-catalog-${brand}${turning?` is-turning turn-${turning>0?'forward':'backward'}`:''}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
   <svg viewBox="0 0 1280 720" aria-hidden="false">
    {brand==='ut'?<>
     <g className="book-ink ut-page-left book-perspective-left" transform="translate(410 185) rotate(10.6) skewY(1.4) scale(.985 1)">
@@ -290,8 +289,16 @@ function BookCatalog({brand,page,inkHidden,onTurnPage}:{brand:'ut'|'toms';page:n
    <div><strong>{hovered.label}</strong><p>{hovered.description}</p></div>
   </div>}
   {brand==='toms'&&<>
-   <button className="book-page-edge book-page-edge-left" type="button" aria-label="Предыдущая страница" disabled={page===0} onClick={()=>onTurnPage(-1)}><span>‹</span></button>
-   <button className="book-page-edge book-page-edge-right" type="button" aria-label="Следующая страница" disabled={page===1} onClick={()=>onTurnPage(1)}><span>›</span></button>
+   <div className="book-live-pages" aria-hidden="true">
+    <div className="book-live-page book-live-left"/>
+    <div className="book-live-page book-live-right"/>
+    {turning!==0&&<div className={`book-turn-sheet ${turning>0?'turn-sheet-forward':'turn-sheet-backward'}`}>
+      <div className="book-turn-face book-turn-front"/>
+      <div className="book-turn-face book-turn-back"/>
+    </div>}
+   </div>
+   <button className="book-page-edge book-page-edge-left" type="button" aria-label="Предыдущая страница" disabled={page===0||!!turning} onClick={()=>turnPage(-1)}><span>‹</span></button>
+   <button className="book-page-edge book-page-edge-right" type="button" aria-label="Следующая страница" disabled={page===1||!!turning} onClick={()=>turnPage(1)}><span>›</span></button>
   </>}
  </div>;
 }
