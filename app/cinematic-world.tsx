@@ -19,8 +19,8 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
  const [view,setView]=useState<View>('landing'),[ready,setReady]=useState(false);
  const [destination,setDestination]=useState<Destination|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(false),[loading,setLoading]=useState(false);
  const [catalogPage,setCatalogPage]=useState(0);
- const [progress,setProgress]=useState(0);
  const hoverCanvas=useRef<HTMLCanvasElement>(null);
+ const progressBar=useRef<HTMLSpanElement>(null);
  useEffect(()=>{
   const ctx=base.current!.getContext('2d',{alpha:false});if(!ctx){setError(true);return;}
   const cache=new FrameSequenceCache(),renderer=createCurtainRenderer(overlay.current!);
@@ -68,15 +68,18 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
      ctx.drawImage(world,0,0,1280,720);
      if(curtain)renderer.draw(curtain,true);else clearCurtain();
      changeView(p>=.975?'choice':p<.025?'landing':'transition');
-     setProgress(p);setReady(true);setError(false);last=p;
-     cache.warm('world',wi);if(showCurtain)cache.warm('curtain',ci);
+     if(progressBar.current)progressBar.current.style.transform=`scaleX(${p})`;
+     setReady(true);setError(false);
+     const direction=p>=last?1:-1;
+     last=p;
+     cache.warm('world',wi,direction);if(showCurtain)cache.warm('curtain',ci,direction);
     }
    }catch{if(!stopped)setError(true);}finally{painting=false;}
   };
   gsap.registerPlugin(ScrollTrigger);
   const proxy={p:0};
   const tween=gsap.to(proxy,{p:1,ease:'none',paused:true,onUpdate:()=>{target=proxy.p;void paint();}});
-  const trigger=ScrollTrigger.create({trigger:track.current,scroller:root.current!,start:'top top',end:'bottom bottom',animation:tween,scrub:.9,invalidateOnRefresh:true});
+  const trigger=ScrollTrigger.create({trigger:track.current,scroller:root.current!,start:'top top',end:'bottom bottom',animation:tween,scrub:.18,invalidateOnRefresh:true});
   target=trigger.progress;void paint();
 
   // Advance only after a frame is available. A slow connection never creates blanks
@@ -150,7 +153,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
     <canvas ref={base} className="world-video" width={1280} height={720} aria-hidden="true" style={{visibility:ready?'visible':'hidden'}}/>
     <canvas ref={hoverCanvas} className="character-motion" width={1280} height={720} aria-hidden="true"/>
     <div className="world-ui" data-scene={view}>
-     <div className="character-hotspots" inert={view!=='landing'||busy||progress>.025} aria-hidden={view!=='landing'}>
+     <div className="character-hotspots" inert={view!=='landing'||busy} aria-hidden={view!=='landing'}>
       {(Object.keys(characterRegions) as Character[]).map(character=><button key={character} type="button" className={`character-hit character-${character}`} aria-label={`${characterLabels[character]} — смотреть видео`} onPointerEnter={()=>actions.current.hover(character)} onPointerLeave={()=>actions.current.hover(null)} onFocus={()=>actions.current.hover(character)} onBlur={()=>actions.current.hover(null)} onClick={()=>actions.current.open('about')}/>) }
      </div>
      <nav className="world-nav" aria-label="Навигация"><button type="button" onClick={()=>actions.current.choose()}>Продукты</button><button type="button" onClick={onAbout}>О нас</button><a className="world-ozon" href={ozon} target="_blank" rel="noopener noreferrer">Мы на <b>Ozon</b><ArrowUpRight size={18}/></a></nav>
@@ -168,7 +171,7 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
    </div>
    {(view==='choice'||view==='destination')&&<div className="world-controls"><button type="button" disabled={busy} onClick={()=>actions.current.back()}><RotateCcw size={16}/>{destination?'Назад':'В начало'}</button>{destination==='toms'&&<button type="button" disabled={busy} onClick={()=>actions.current.flip()}>Перелистнуть</button>}</div>}
    {(loading||error)&&<div className="sequence-status" role="status">{error?<><span>Не удалось загрузить кадры.</span><button onClick={()=>actions.current.retry()}>Повторить</button></>:<span>Загружаем сцену…</span>}</div>}
-   <div className="world-progress" aria-hidden="true"><span style={{transform:`scaleX(${progress})`}}/></div>
+   <div className="world-progress" aria-hidden="true"><span ref={progressBar}/></div>
   </div></div>
  </section>;
 }
