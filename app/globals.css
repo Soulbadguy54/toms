@@ -339,3 +339,6 @@ html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;
  .catalog-popover strong{font-size:15px}.catalog-popover p{font-size:12px}
  .book-page-edge{width:13%;top:20%;bottom:16%}.book-page-edge span{font-size:42px}
 }
+
+.book-catalog .book-ink,.book-catalog .catalog-popover{transition:opacity .22s ease,filter .22s ease}
+.book-catalog.book-ink-hidden .book-ink,.book-catalog.book-ink-hidden .catalog-popover{opacity:0;filter:blur(1.5px)}
