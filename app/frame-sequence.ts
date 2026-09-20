@@ -29,9 +29,15 @@ export class FrameSequenceCache {
  }
  warm(name:SequenceName,index:number,direction=1){
   if(this.disposed)return;
-  for(let offset=1;offset<=12;offset++){
+  // Keep a larger look-ahead window so fast scroll gestures do not outrun
+  // network fetch + image decoding. Also keep a few frames behind for reversals.
+  for(let offset=1;offset<=28;offset++){
    const next=index+offset*direction;
    if(next>=0&&next<sequences[name])void this.get(name,next).catch(()=>{});
+  }
+  for(let offset=1;offset<=6;offset++){
+   const previous=index-offset*direction;
+   if(previous>=0&&previous<sequences[name])void this.get(name,previous).catch(()=>{});
   }
  }
  dispose(){this.disposed=true;this.entries.clear();}
