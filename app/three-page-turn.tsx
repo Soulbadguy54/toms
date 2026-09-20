@@ -20,14 +20,41 @@ const PAGE = {
   right: {x: 654, y: 151, w: 430, h: 438, angle: -2.8},
 } as const;
 
-function cropPage(image:HTMLImageElement, side:"left"|"right"){
+function cropPage(image:HTMLImageElement, side:"left"|"right", sourcePage:number){
   const p=PAGE[side];
   const canvas=document.createElement("canvas");
   canvas.width=Math.round(p.w*1.6);
   canvas.height=Math.round(p.h*1.6);
   const ctx=canvas.getContext("2d")!;
-  ctx.scale(canvas.width/p.w,canvas.height/p.h);
+  const scale=canvas.width/p.w;
+  ctx.scale(scale,scale);
   ctx.drawImage(image,p.x,p.y,p.w,p.h,0,0,p.w,p.h);
+
+  // Carry the visible menu ink on the same texture as the paper so it deforms
+  // with the mesh instead of floating independently above the page.
+  const page0 = sourcePage===0;
+  const content = side==="right"
+    ? (page0
+      ? {kicker:"CHEF'S CHOICE",title:"Азиатская линия",items:["Soy · Teriyaki","Unagi","Ginger","Hot Chili"]}
+      : {kicker:"TOM'S · KETCHUP",title:"Кетчупы",items:["Томатный","Для гриля","Острый"]})
+    : (page0
+      ? {kicker:"TOM'S · SAUCE COLLECTION",title:"Соусы",items:["Sweet Chili","Barbecue","Sriracha Hot","Sweet & Sour"]}
+      : {kicker:"TOM'S · JUICE BAR",title:"Соки 0,2 л",items:["Яблочный","Виноградный","Гранатовый"]});
+
+  ctx.save();
+  ctx.translate(p.w*.5,p.h*.5);
+  ctx.rotate(THREE.MathUtils.degToRad(side==="left"?10.4:-2.8));
+  ctx.translate(-p.w*.5,-p.h*.5);
+  ctx.fillStyle="#3b281c";
+  ctx.globalAlpha=.92;
+  ctx.font="700 10px Arial";
+  ctx.fillText(content.kicker,56,92);
+  ctx.font="700 27px Georgia";
+  ctx.fillText(content.title,56,132);
+  ctx.fillRect(56,145,255,1);
+  ctx.font="600 18px Georgia";
+  content.items.forEach((item,index)=>ctx.fillText(item,56,184+index*34));
+  ctx.restore();
   return canvas;
 }
 
@@ -75,7 +102,7 @@ export default function ThreePageTurn({direction,sourcePage,onMidpoint,onDone}:P
       try{await image.decode();}catch{}
       if(disposed)return;
 
-      const pageCanvas=cropPage(image,sourceSide);
+      const pageCanvas=cropPage(image,sourceSide,sourcePage);
       const texture=new THREE.CanvasTexture(pageCanvas);
       texture.colorSpace=THREE.SRGBColorSpace;
       texture.minFilter=THREE.LinearFilter;
