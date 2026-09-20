@@ -385,3 +385,11 @@ html,body{height:100%;overflow:hidden}.world,.world.world-static{position:fixed;
 @media(prefers-reduced-motion:reduce){
  .turn-sheet-forward,.turn-sheet-backward{animation-duration:.01ms}
 }
+
+
+/* Three.js page turn overlay calibrated to the 1280x720 Tom's final frame. */
+.three-page-turn{position:absolute;inset:0;z-index:7;pointer-events:none;overflow:visible}
+.three-page-turn-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.book-catalog-toms.is-turning .catalog-popover{opacity:0!important}
+.book-catalog-toms.turn-forward .toms-page-right,
+.book-catalog-toms.turn-backward .toms-page-left{opacity:0;transition:opacity .08s linear}
