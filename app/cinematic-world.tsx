@@ -15,7 +15,7 @@ const clamp=(v:number)=>Math.max(0,Math.min(1,v));
 export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
  const root=useRef<HTMLElement>(null),track=useRef<HTMLDivElement>(null);
  const base=useRef<HTMLCanvasElement>(null),overlay=useRef<HTMLCanvasElement>(null);
- const actions=useRef({choose:()=>{},open:(_brand:Destination)=>{},back:()=>{},flip:()=>{},hover:(_character:Character|null)=>{},retry:()=>{}});
+ const actions=useRef({choose:()=>{},open:(_brand:Destination)=>{},back:()=>{},flip:(_direction:1|-1=1)=>{},hover:(_character:Character|null)=>{},retry:()=>{}});
  const [view,setView]=useState<View>('landing'),[ready,setReady]=useState(false);
  const [destination,setDestination]=useState<Destination|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(false),[loading,setLoading]=useState(false);
  const [catalogPage,setCatalogPage]=useState(0);
@@ -148,12 +148,19 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
    }catch{if(!stopped){setError(true);changeView('destination');}}
    finally{animating=false;if(!stopped)setBusy(false);}
   };
-  const flip=async()=>{
-   if(animating||active!=='toms'||flipped)return;animating=true;setBusy(true);setCatalogPage(-1);
-   try{await play('toms-pages',0,sequences['toms-pages']-1);flipped=true;setCatalogPage(1);}catch{if(!stopped){setError(true);setCatalogPage(0);}}finally{animating=false;if(!stopped)setBusy(false);}
+  const flip=async(direction:1|-1=1)=>{
+   if(animating||active!=='toms')return;
+   if((direction>0&&flipped)||(direction<0&&!flipped))return;
+   animating=true;setBusy(true);setCatalogPage(-1);
+   try{
+    if(direction>0)await play('toms-pages',0,sequences['toms-pages']-1);
+    else await play('toms-pages',sequences['toms-pages']-1,0);
+    flipped=direction>0;setCatalogPage(flipped?1:0);
+   }catch{if(!stopped){setError(true);setCatalogPage(flipped?1:0);}}
+   finally{animating=false;if(!stopped)setBusy(false);}
   };
   const choose=()=>{if(active)return;root.current?.scrollTo({top:trigger.end,behavior:media.matches?'instant':'smooth'});};
-  actions.current={choose,hover:character=>{void hover(character);},open:brand=>{void open(brand);},back:()=>{void back();},flip:()=>{void flip();},retry:()=>{setError(false);if(active){const brand=active;active=null;animating=false;void open(brand);}else{last=-1;void paint();}}};
+  actions.current={choose,hover:character=>{void hover(character);},open:brand=>{void open(brand);},back:()=>{void back();},flip:direction=>{void flip(direction);},retry:()=>{setError(false);if(active){const brand=active;active=null;animating=false;void open(brand);}else{last=-1;void paint();}}};
   const brandEvent=(e:Event)=>{const name=(e as CustomEvent).detail;if(name==='ut'||name==='toms')void open(name);};
   const showChoice=()=>choose();const visible=()=>{if(!document.hidden)void paint();};
   const key=(e:KeyboardEvent)=>{if(e.key==='Escape'&&active&&!document.querySelector('[role="dialog"]'))void back();};
@@ -186,23 +193,102 @@ export default function CinematicWorld({onAbout}:{onAbout:()=>void}){
       <a className="sign-link sign-toms" href="#catalog-toms" onClick={e=>{e.preventDefault();actions.current.open('toms');}} aria-label="Открыть каталог Tom’s"><img src="/toms-logo-transparent.png" alt="Tom’s"/></a>
      </div>
     </div>
-    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage}/>}
+    {(destination==='ut'||destination==='toms')&&view==='destination'&&catalogPage>=0&&<BookCatalog brand={destination} page={catalogPage} onTurnPage={direction=>actions.current.flip(direction)}/>} 
     {destination==='about'&&view==='destination'&&<div className="projection-video"><video src="/video/world.mp4" aria-label="Пример видео на экране Дяди Тома" controls autoPlay muted playsInline loop preload="metadata"/></div>}
     <canvas ref={overlay} className="world-curtain" width={1280} height={720} aria-hidden="true"/>
    </div>
-   {(view==='choice'||view==='destination')&&<div className="world-controls"><button type="button" disabled={busy} onClick={()=>actions.current.back()}><RotateCcw size={16}/>{destination?'Назад':'В начало'}</button>{destination==='toms'&&<button type="button" disabled={busy} onClick={()=>actions.current.flip()}>Перелистнуть</button>}</div>}
+   {(view==='choice'||view==='destination')&&<div className="world-controls"><button type="button" disabled={busy} onClick={()=>actions.current.back()}><RotateCcw size={16}/>{destination?'Назад':'В начало'}</button>{destination==='toms'&&<button type="button" disabled={busy} onClick={()=>actions.current.flip(catalogPage===0?1:-1)}>{catalogPage===0?'Следующая страница':'Предыдущая страница'}</button>}</div>}
    {(loading||error)&&<div className="sequence-status" role="status">{error?<><span>Не удалось загрузить кадры.</span><button onClick={()=>actions.current.retry()}>Повторить</button></>:<span>Загружаем сцену…</span>}</div>}
    <div className="world-progress" aria-hidden="true"><span ref={progressBar}/></div>
   </div></div>
  </section>;
 }
 
-function BookCatalog({brand,page}:{brand:'ut'|'toms';page:number}){
- if(brand==='ut')return <div className="book-catalog book-catalog-ut" role="region" aria-label="Каталог продуктов Дяди Тома"><svg viewBox="0 0 1280 720" aria-hidden="true">
-  <g className="book-ink ut-page-left" transform="translate(410 185) rotate(10)"><text className="book-kicker" x="0" y="0">ПРОДУКТЫ ДЯДИ ТОМА</text><text className="book-title" x="0" y="42">Соки и нектары</text><path d="M0 58H255"/><text className="book-copy" x="0" y="91"><tspan x="0">Яблочный · Томатный</tspan><tspan x="0" dy="31">Абрикосовый · Тыквенный</tspan><tspan x="0" dy="31">Морковный · Шиповник</tspan></text><text className="book-note" x="0" y="212">Натуральный вкус щедрого сада</text></g>
-  <g className="book-ink ut-page-right" transform="translate(795 252) rotate(-8)"><text className="book-kicker" x="0" y="0">К СЕМЕЙНОМУ СТОЛУ</text><text className="book-title" x="0" y="42">Соусы и кетчупы</text><path d="M0 58H245"/><text className="book-copy" x="0" y="91"><tspan x="0">Краснодарский соус</tspan><tspan x="0" dy="31">Кетчуп томатный</tspan><tspan x="0" dy="31">Шашлычный · Острый</tspan></text><text className="book-note" x="0" y="212">Вкус начинается дома</text></g>
- </svg></div>;
- return <div className="book-catalog book-catalog-toms" role="region" aria-label="Каталог Tom’s"><svg viewBox="0 0 1280 720" aria-hidden="true">
-  {page===0?<><g className="book-ink toms-page-left" transform="translate(240 176) rotate(1.5)"><text className="book-kicker" x="0" y="0">TOM’S · SAUCE COLLECTION</text><text className="book-title" x="0" y="44">Соусы</text><path d="M0 62H310"/><text className="book-copy" x="0" y="98"><tspan x="0">Sweet Chili</tspan><tspan x="0" dy="35">Barbecue</tspan><tspan x="0" dy="35">Sriracha Hot</tspan><tspan x="0" dy="35">Sweet &amp; Sour</tspan></text><text className="book-note" x="0" y="270">Яркие вкусы для любимых блюд</text></g><g className="book-ink toms-page-right" transform="translate(748 176) rotate(-1)"><text className="book-kicker" x="0" y="0">CHEF’S CHOICE</text><text className="book-title" x="0" y="44">Азиатская линия</text><path d="M0 62H310"/><text className="book-copy" x="0" y="98"><tspan x="0">Soy · Teriyaki</tspan><tspan x="0" dy="35">Unagi</tspan><tspan x="0" dy="35">Ginger</tspan><tspan x="0" dy="35">Hot Chili</tspan></text><text className="book-note" x="0" y="270">Точная подача. Чистый вкус.</text></g></>:<><g className="book-ink toms-page-left" transform="translate(240 176) rotate(1.5)"><text className="book-kicker" x="0" y="0">TOM’S · JUICE BAR</text><text className="book-title" x="0" y="44">Соки 0,2 л</text><path d="M0 62H310"/><text className="book-copy" x="0" y="102"><tspan x="0">Яблочный</tspan><tspan x="0" dy="42">Виноградный</tspan><tspan x="0" dy="42">Гранатовый</tspan></text><text className="book-note" x="0" y="270">Удобный формат — насыщенный вкус</text></g><g className="book-ink toms-page-right" transform="translate(748 176) rotate(-1)"><text className="book-kicker" x="0" y="0">TOM’S · KETCHUP</text><text className="book-title" x="0" y="44">Кетчупы</text><path d="M0 62H310"/><text className="book-copy" x="0" y="102"><tspan x="0">Томатный</tspan><tspan x="0" dy="42">Для гриля</tspan><tspan x="0" dy="42">Острый</tspan></text><text className="book-note" x="0" y="270">Классика с характером Tom’s</text></g></>}
- </svg></div>;
+
+type CatalogProduct={
+ id:string;
+ label:string;
+ description:string;
+ image:string;
+ x:number;
+ y:number;
+ popup:[string,string];
+};
+
+const tomatoPlaceholder='https://images.unsplash.com/photo-1594567170531-bb0a139aaba3?auto=format&fit=crop&w=640&q=82';
+const bottlePlaceholder='https://images.unsplash.com/photo-1603824255873-bb3608d7e545?auto=format&fit=crop&w=640&q=82';
+
+function BookCatalog({brand,page,onTurnPage}:{brand:'ut'|'toms';page:number;onTurnPage:(direction:1|-1)=>void}){
+ const [hovered,setHovered]=useState<CatalogProduct|null>(null);
+ const tomsPages:CatalogProduct[][]=[
+  [
+   {id:'sweet-chili',label:'Sweet Chili',description:'Текст-заглушка для описания продукта. Здесь позже появятся вкус, состав, формат упаковки и рекомендации по подаче.',image:bottlePlaceholder,x:240,y:274,popup:['30%','51%']},
+   {id:'barbecue',label:'Barbecue',description:'Текст-заглушка для описания продукта. Здесь позже появится короткая история вкуса и основные характеристики.',image:bottlePlaceholder,x:240,y:309,popup:['30%','56%']},
+   {id:'sriracha',label:'Sriracha Hot',description:'Текст-заглушка для описания острого соуса и его сочетаний с блюдами.',image:tomatoPlaceholder,x:240,y:344,popup:['30%','61%']},
+   {id:'sweet-sour',label:'Sweet & Sour',description:'Текст-заглушка для описания кисло-сладкого соуса и подходящих блюд.',image:tomatoPlaceholder,x:240,y:379,popup:['30%','66%']},
+   {id:'soy-teriyaki',label:'Soy · Teriyaki',description:'Текст-заглушка для азиатской линейки: вкус, формат и рекомендации по использованию.',image:bottlePlaceholder,x:748,y:274,popup:['69%','51%']},
+   {id:'unagi',label:'Unagi',description:'Текст-заглушка для продукта. Позже здесь будет описание вкуса и применения.',image:bottlePlaceholder,x:748,y:309,popup:['69%','56%']},
+   {id:'ginger',label:'Ginger',description:'Текст-заглушка для имбирного вкуса и сочетаний.',image:tomatoPlaceholder,x:748,y:344,popup:['69%','61%']},
+   {id:'hot-chili',label:'Hot Chili',description:'Текст-заглушка для острого соуса и рекомендаций по подаче.',image:tomatoPlaceholder,x:748,y:379,popup:['69%','66%']},
+  ],
+  [
+   {id:'apple',label:'Яблочный',description:'Текст-заглушка для яблочного сока: состав, объём и вкусовой профиль.',image:tomatoPlaceholder,x:240,y:278,popup:['30%','52%']},
+   {id:'grape',label:'Виноградный',description:'Текст-заглушка для виноградного сока и его характеристик.',image:bottlePlaceholder,x:240,y:320,popup:['30%','59%']},
+   {id:'pomegranate',label:'Гранатовый',description:'Текст-заглушка для гранатового сока и его характеристик.',image:tomatoPlaceholder,x:240,y:362,popup:['30%','65%']},
+   {id:'ketchup-classic',label:'Томатный',description:'Текст-заглушка для классического томатного кетчупа.',image:tomatoPlaceholder,x:748,y:278,popup:['69%','52%']},
+   {id:'ketchup-grill',label:'Для гриля',description:'Текст-заглушка для кетчупа к грилю.',image:bottlePlaceholder,x:748,y:320,popup:['69%','59%']},
+   {id:'ketchup-hot',label:'Острый',description:'Текст-заглушка для острого кетчупа.',image:tomatoPlaceholder,x:748,y:362,popup:['69%','65%']},
+  ],
+ ];
+ const utProducts:CatalogProduct[]=[
+  {id:'apple-ut',label:'Яблочный · Томатный',description:'Текст-заглушка для соков и нектаров «Продукты Дяди Тома».',image:tomatoPlaceholder,x:410,y:276,popup:['40%','53%']},
+  {id:'apricot-ut',label:'Абрикосовый · Тыквенный',description:'Текст-заглушка для линейки соков и нектаров.',image:bottlePlaceholder,x:410,y:307,popup:['40%','59%']},
+  {id:'carrot-ut',label:'Морковный · Шиповник',description:'Текст-заглушка для линейки соков и нектаров.',image:tomatoPlaceholder,x:410,y:338,popup:['40%','65%']},
+  {id:'krasnodar-ut',label:'Краснодарский соус',description:'Текст-заглушка для соуса: вкус, состав и подача.',image:tomatoPlaceholder,x:795,y:343,popup:['69%','57%']},
+  {id:'tomato-ut',label:'Кетчуп томатный',description:'Текст-заглушка для томатного кетчупа.',image:bottlePlaceholder,x:795,y:374,popup:['69%','63%']},
+  {id:'bbq-ut',label:'Шашлычный · Острый',description:'Текст-заглушка для шашлычного и острого вкусов.',image:tomatoPlaceholder,x:795,y:405,popup:['69%','69%']},
+ ];
+ const products=brand==='toms'?tomsPages[Math.min(page,1)]:utProducts;
+ const renderItems=(side:'left'|'right')=>products.filter(product=>side==='left'?product.x<650:product.x>=650).map(product=>
+  <text key={product.id} className="book-item" x={product.x<650?0:0} y={product.y-(brand==='ut'?(product.x<650?185:252):176)}
+   tabIndex={0} role="button"
+   onPointerEnter={()=>setHovered(product)} onPointerLeave={()=>setHovered(null)}
+   onFocus={()=>setHovered(product)} onBlur={()=>setHovered(null)}>{product.label}</text>
+ );
+ return <div className={`book-catalog book-catalog-${brand}`} role="region" aria-label={brand==='ut'?'Каталог продуктов Дяди Тома':'Каталог Tom’s'}>
+  <svg viewBox="0 0 1280 720" aria-hidden="false">
+   {brand==='ut'?<>
+    <g className="book-ink ut-page-left book-perspective-left" transform="translate(410 185) rotate(10) skewY(1.8) scale(.985 1)">
+     <text className="book-kicker" x="0" y="0">ПРОДУКТЫ ДЯДИ ТОМА</text><text className="book-title" x="0" y="42">Соки и нектары</text><path d="M0 58H255"/>
+     {renderItems('left')}<text className="book-note" x="0" y="212">Натуральный вкус щедрого сада</text>
+    </g>
+    <g className="book-ink ut-page-right book-perspective-right" transform="translate(795 252) rotate(-8) skewY(-1.6) scale(.985 1)">
+     <text className="book-kicker" x="0" y="0">К СЕМЕЙНОМУ СТОЛУ</text><text className="book-title" x="0" y="42">Соусы и кетчупы</text><path d="M0 58H245"/>
+     {renderItems('right')}<text className="book-note" x="0" y="212">Вкус начинается дома</text>
+    </g>
+   </>:page===0?<>
+    <g className="book-ink toms-page-left book-perspective-left" transform="translate(240 176) rotate(2.4) skewY(1.7) scale(.975 1)">
+     <text className="book-kicker" x="0" y="0">TOM’S · SAUCE COLLECTION</text><text className="book-title" x="0" y="44">Соусы</text><path d="M0 62H310"/>{renderItems('left')}<text className="book-note" x="0" y="270">Яркие вкусы для любимых блюд</text>
+    </g>
+    <g className="book-ink toms-page-right book-perspective-right" transform="translate(748 176) rotate(-2.6) skewY(-1.8) scale(.975 1)">
+     <text className="book-kicker" x="0" y="0">CHEF’S CHOICE</text><text className="book-title" x="0" y="44">Азиатская линия</text><path d="M0 62H310"/>{renderItems('right')}<text className="book-note" x="0" y="270">Точная подача. Чистый вкус.</text>
+    </g>
+   </>:<>
+    <g className="book-ink toms-page-left book-perspective-left" transform="translate(240 176) rotate(2.4) skewY(1.7) scale(.975 1)">
+     <text className="book-kicker" x="0" y="0">TOM’S · JUICE BAR</text><text className="book-title" x="0" y="44">Соки 0,2 л</text><path d="M0 62H310"/>{renderItems('left')}<text className="book-note" x="0" y="270">Удобный формат — насыщенный вкус</text>
+    </g>
+    <g className="book-ink toms-page-right book-perspective-right" transform="translate(748 176) rotate(-2.6) skewY(-1.8) scale(.975 1)">
+     <text className="book-kicker" x="0" y="0">TOM’S · KETCHUP</text><text className="book-title" x="0" y="44">Кетчупы</text><path d="M0 62H310"/>{renderItems('right')}<text className="book-note" x="0" y="270">Классика с характером Tom’s</text>
+    </g>
+   </>}
+  </svg>
+  {hovered&&<div className="catalog-popover" style={{left:hovered.popup[0],top:hovered.popup[1]}}>
+   <img src={hovered.image} alt="" loading="lazy"/>
+   <div><strong>{hovered.label}</strong><p>{hovered.description}</p></div>
+  </div>}
+  {brand==='toms'&&<>
+   <button className="book-page-edge book-page-edge-left" type="button" aria-label="Предыдущая страница" disabled={page===0} onClick={()=>onTurnPage(-1)}><span>‹</span></button>
+   <button className="book-page-edge book-page-edge-right" type="button" aria-label="Следующая страница" disabled={page===1} onClick={()=>onTurnPage(1)}><span>›</span></button>
+  </>}
+ </div>;
 }
